@@ -40,7 +40,11 @@ GameObject.Find("오브젝트").GetComponent<스크립트>().GetPoint(인덱스)
 
 Scene을 불러오지 않고 
 
-직접 Object를 추가하여 스크립트를 넣는 경우, UI - RawImage로 RawImage를 하나 만든 다음 아래와 같이 연결해주면 된다.
+직접 Object를 추가하여 스크립트를 넣는 경우,
+
+Empty Object를 만든 후 ImageSource (Packages/Test Tools/Script)와 Hand Animator (Assets/Test/Script) 스크립트를 넣는다.
+
+그 후, UI - RawImage로 RawImage를 하나 만든 다음 아래와 같이 연결해주면 된다.
 
 ![image](https://github.com/BaekJunehong/Hufs_Capstone/assets/163231781/acd290a4-292e-4fd5-ad1d-059a182af206)
 
