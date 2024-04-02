@@ -13,8 +13,11 @@ Handpose를 확인하고 싶다면 아래 부분을 주석 해체하고
 
 
 -Canvas : "Monitor" 이름의 RawImage를 웹캠 입력으로 받기 위해 사용
+
 -Camera ~ Wall : HandPose의 시각화 및 시각성을 높이기 위해 사용 
+
 -Animator : Barracuda 모델링을 실행시키는 Object로 웹캠과 HandPose를 관리
+
 -running : 정상적으로 Hand KeyPoint를 받아오는지 확인하기 위해 넣은 이미지 오브젝트
 
 ================================================================
