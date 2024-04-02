@@ -12,6 +12,7 @@ Handpose를 확인하고 싶다면 아래 부분을 주석 해체하고
 
 ![image](https://github.com/BaekJunehong/Hufs_Capstone/assets/163231781/b8bceecf-38bf-4f46-bf6f-19a01b85959b)
 
+"Workspace" Scene 파일을 실행하면 위와 같은 화면이 나온다.
 
 -Canvas : "Monitor" 이름의 RawImage를 웹캠 입력으로 받기 위해 사용
 
