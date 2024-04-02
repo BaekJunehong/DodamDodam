@@ -12,6 +12,7 @@ Handpose를 확인하고 싶다면 아래 부분을 주석 해체하고
 
 ![image](https://github.com/BaekJunehong/Hufs_Capstone/assets/163231781/b8bceecf-38bf-4f46-bf6f-19a01b85959b)
 
+"Workspace" Scene 파일을 실행하면 위와 같은 화면이 나온다.
 
 -Canvas : "Monitor" 이름의 RawImage를 웹캠 입력으로 받기 위해 사용
 
@@ -39,7 +40,11 @@ GameObject.Find("오브젝트").GetComponent<스크립트>().GetPoint(인덱스)
 
 Scene을 불러오지 않고 
 
-직접 Object를 추가하여 스크립트를 넣는 경우, UI - RawImage로 RawImage를 하나 만든 다음 아래와 같이 연결해주면 된다.
+직접 Object를 추가하여 스크립트를 넣는 경우,
+
+Empty Object를 만든 후 ImageSource (Packages/Test Tools/Script)와 Hand Animator (Assets/Test/Script) 스크립트를 넣는다.
+
+그 후, UI - RawImage로 RawImage를 하나 만든 다음 아래와 같이 연결해주면 된다.
 
 ![image](https://github.com/BaekJunehong/Hufs_Capstone/assets/163231781/acd290a4-292e-4fd5-ad1d-059a182af206)
 
