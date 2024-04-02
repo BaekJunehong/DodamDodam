@@ -1,4 +1,5 @@
-Handpose는 그리지 않도록 변경해둔 상태
+Handpose는 그리지 않도록 변경해둔 상태,
+
 Handpose를 확인하고 싶다면 아래 부분을 주석 해체하고
 ![image](https://github.com/BaekJunehong/Hufs_Capstone/assets/163231781/93fbeae6-2af3-4cdb-bb7b-7369f4e1c5cf)
 
