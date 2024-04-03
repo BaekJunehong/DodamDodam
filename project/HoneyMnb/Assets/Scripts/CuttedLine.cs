@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CuttedLine : MonoBehaviour
 {
-    public float Width = 0.1f;
+    public float Width = 0.4f;
 
     private LineRenderer lineRenderer;
     private float distanceThreshold = 0.01f;
