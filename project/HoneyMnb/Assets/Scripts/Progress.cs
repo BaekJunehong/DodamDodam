@@ -12,7 +12,7 @@ public class Progress : MonoBehaviour
     private Vector3 previousPostion = Vector3.zero;
     bool flag = false;
 
-    float prog = 0;
+    public float prog = 0;
     
     // Update is called once per frame
     void Update()
