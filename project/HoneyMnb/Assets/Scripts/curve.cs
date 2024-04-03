@@ -65,8 +65,8 @@ public class curve : MonoBehaviour
     }
     private void cuttingComplete(){
         if(CurrentPos.x <= -8 && timeCount < 0.1){
-            Vector3 positiveTargetPosition = positiveSideObject.transform.position + Vector3.up * 0.02f; // 예를 들어, 5 유닛만큼 위로
-            Vector3 negativeTargetPosition = negativeSideObject.transform.position + Vector3.down * 0.02f; // 예를 들어, 5 유닛만큼 아래로
+            Vector3 positiveTargetPosition = positiveSideObject.transform.position + Vector3.up * 10f * Time.deltaTime; // 예를 들어, 5 유닛만큼 위로
+            Vector3 negativeTargetPosition = negativeSideObject.transform.position + Vector3.down * 10f * Time.deltaTime; // 예를 들어, 5 유닛만큼 아래로
             positiveSideObject.transform.position = positiveTargetPosition;
             negativeSideObject.transform.position = negativeTargetPosition;
             timeCount += Time.deltaTime;
