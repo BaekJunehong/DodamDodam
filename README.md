@@ -3,6 +3,6 @@
 
 야무진 팀  
 
-### 현재 프로젝트는 project/HoneyMnb 파일에서 진행중  
+- 현재 프로젝트는 project/HoneyMnb 파일에서 진행중  
 
 
