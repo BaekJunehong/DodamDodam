@@ -3,5 +3,6 @@
 
 야무진 팀  
 
-현재 실질적 프로젝트는 project/HoneyMnb 파일에서 진행중에 있습니다.  
+### 현재 프로젝트는 project/HoneyMnb 파일에서 진행중  
+
 
