@@ -28,6 +28,12 @@ partial class HandPipeline
     public Vector3 GetKeyPoint(int index)
       => ReadCache[index];
 
+    public float Score
+      => _detector.landmark.Score;
+
+    public float Handedness
+      => _detector.landmark.Handedness;
+
     #endregion
 
     #region GPU-side resource accessors

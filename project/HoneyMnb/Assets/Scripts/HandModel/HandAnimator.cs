@@ -12,8 +12,15 @@ public sealed class HandAnimator : MonoBehaviour
     public static HandAnimator instance;
 
     public Vector3 GetPoint(int index)
-      => transform.TransformPoint(_pipeline.GetKeyPoint(index));
-      // => _pipeline.GetKeyPoint(index);
+      // => transform.TransformPoint(_pipeline.GetKeyPoint(index));
+      // => Camera.main.WorldToScreenPoint(_pipeline.GetKeyPoint(index));
+      => _pipeline.GetKeyPoint(index);
+
+    public float GetScore
+      => _pipeline.Score;
+
+    public float GetHandedness
+      => _pipeline.Handedness;
 
     #endregion
 
@@ -38,15 +45,15 @@ public sealed class HandAnimator : MonoBehaviour
 
     HandPipeline _pipeline;
 
-    static readonly (int, int)[] BonePairs =
-    {
-        (0, 1), (1, 2), (1, 2), (2, 3), (3, 4),     // Thumb
-        (5, 6), (6, 7), (7, 8),                     // Index finger
-        (9, 10), (10, 11), (11, 12),                // Middle finger
-        (13, 14), (14, 15), (15, 16),               // Ring finger
-        (17, 18), (18, 19), (19, 20),               // Pinky
-        (0, 17), (2, 5), (5, 9), (9, 13), (13, 17)  // Palm
-    };
+    // static readonly (int, int)[] BonePairs =
+    // {
+    //     (0, 1), (1, 2), (1, 2), (2, 3), (3, 4),     // Thumb
+    //     (5, 6), (6, 7), (7, 8),                     // Index finger
+    //     (9, 10), (10, 11), (11, 12),                // Middle finger
+    //     (13, 14), (14, 15), (15, 16),               // Ring finger
+    //     (17, 18), (18, 19), (19, 20),               // Pinky
+    //     (0, 17), (2, 5), (5, 9), (9, 13), (13, 17)  // Palm
+    // };
 
     // Matrix4x4 CalculateJointXform(Vector3 pos)
     //   => Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.07f);
