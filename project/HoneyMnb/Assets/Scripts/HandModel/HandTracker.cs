@@ -19,6 +19,9 @@ public class HandTracker : MonoBehaviour
     public float GetValidHand
         => HandAnimator.instance.GetHandedness;
 
+    public void DrawHand()
+        => HandAnimator.instance.OnRenderHand();
+
     public Vector3 MappingVertex(Vector3 refVec)
     {
         Vector3 originalMin = new Vector3(-0.85f, -0.5f, 0);
