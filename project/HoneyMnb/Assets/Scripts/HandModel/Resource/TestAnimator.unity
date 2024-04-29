@@ -291,6 +291,10 @@ MonoBehaviour:
   _source: {fileID: 362122832}
   _resources: {fileID: 11400000, guid: 93cd4e0834db98c43be8caae5cad094f, type: 2}
   _useAsyncReadback: 1
+  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  _jointMaterial: {fileID: 2100000, guid: 8fc9a49805f417449ab7a1d003186662, type: 2}
+  _boneMaterial: {fileID: 2100000, guid: a00bbf571964b4a4f9e545dcdc666ae8, type: 2}
   _monitorUI: {fileID: 517617630}
 --- !u!1 &517617629
 GameObject:
@@ -432,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -452,8 +456,8 @@ Canvas:
   m_GameObject: {fileID: 519497210}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1719240390}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -916,7 +920,7 @@ GameObject:
   - component: {fileID: 1719240392}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -955,7 +959,7 @@ Camera:
   near clip plane: 0.1
   far clip plane: 100
   field of view: 30
-  orthographic: 0
+  orthographic: 1
   orthographic size: 0.5
   m_Depth: 0
   m_CullingMask:
