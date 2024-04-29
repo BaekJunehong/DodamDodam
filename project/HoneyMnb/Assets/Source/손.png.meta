@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19bd8f145780b6245a91c5a233a3e747
+guid: f0ca4eb8fd9654e4abb717a6c2562d05
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: scissors2_0
+      name: "\uC190_0"
       rect:
         serializedVersion: 2
-        x: 74
-        y: 666
-        width: 102
-        height: 118
+        x: 29
+        y: 601
+        width: 332
+        height: 519
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46c380e10ef67e249b08595285699e7e
-      internalID: 480478945
+      spriteID: 40fd19b7992d1e34f921ba3469010a94
+      internalID: -1236447160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scissors2_1
+      name: "\uC190_1"
       rect:
         serializedVersion: 2
-        x: 316
-        y: 665
-        width: 98
-        height: 120
+        x: 517
+        y: 601
+        width: 373
+        height: 515
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a65bcec5a569a24fa89ce4e78274317
-      internalID: 816350377
+      spriteID: f9bb870a82647ab4c8885134efd0a314
+      internalID: -1960366167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scissors2_2
+      name: "\uC190_2"
       rect:
         serializedVersion: 2
-        x: 557
-        y: 664
-        width: 96
-        height: 122
+        x: 1072
+        y: 601
+        width: 389
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e586b08d069de742bbb8563a4e58e03
-      internalID: -586258118
+      spriteID: dec42ae5843ae00458e929cb85a2a767
+      internalID: 1726289264
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scissors2_3
+      name: "\uC190_3"
       rect:
         serializedVersion: 2
-        x: 799
-        y: 664
-        width: 93
-        height: 122
+        x: 0
+        y: 0
+        width: 390
+        height: 564
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d633c16b370b27549bfaf6644abe5a68
-      internalID: 460085803
+      spriteID: f5ddc64883152214bac8c6965acb601a
+      internalID: 200077265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scissors2_4
+      name: "\uC190_4"
       rect:
         serializedVersion: 2
-        x: 1042
-        y: 662
-        width: 86
-        height: 125
+        x: 514
+        y: 22
+        width: 379
+        height: 528
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6155cf990ab8269479ee0f6ae0a696ae
-      internalID: 139440627
+      spriteID: e0aaf0dc8d8b0ed4d833468eadb42063
+      internalID: 1360208901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scissors2_5
+      name: "\uC190_5"
       rect:
         serializedVersion: 2
-        x: 79
-        y: 504
-        width: 93
-        height: 122
+        x: 1064
+        y: 22
+        width: 405
+        height: 437
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,71 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8027e3c83d914ed4cbfa1c4e3ce4f22b
-      internalID: -902842332
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: scissors2_6
-      rect:
-        serializedVersion: 2
-        x: 317
-        y: 504
-        width: 96
-        height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b74512df4de3f904e9acabdfd3c7fe63
-      internalID: -895610368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: scissors2_7
-      rect:
-        serializedVersion: 2
-        x: 556
-        y: 505
-        width: 98
-        height: 120
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e7ce836726b6d14ea1e0499d2863f34
-      internalID: 1527379716
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: scissors2_8
-      rect:
-        serializedVersion: 2
-        x: 794
-        y: 506
-        width: 102
-        height: 118
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cbefae7ffef0fcc43855e70f55a07700
-      internalID: 1641683553
+      spriteID: 84e75d60a6ca1ff4bb11afa31790da82
+      internalID: -737648868
       vertices: []
       indices: 
       edges: []
@@ -309,15 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      scissors2_0: 480478945
-      scissors2_1: 816350377
-      scissors2_2: -586258118
-      scissors2_3: 460085803
-      scissors2_4: 139440627
-      scissors2_5: -902842332
-      scissors2_6: -895610368
-      scissors2_7: 1527379716
-      scissors2_8: 1641683553
+      "\uC190_0": -1236447160
+      "\uC190_1": -1960366167
+      "\uC190_2": 1726289264
+      "\uC190_3": 200077265
+      "\uC190_4": 1360208901
+      "\uC190_5": -737648868
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
