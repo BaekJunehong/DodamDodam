@@ -3,7 +3,10 @@ guid: d54ecf4bc7861944a8a78979d4059bbd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scissors: {instanceID: 0}
+  - openhand: {fileID: -1960366167, guid: f0ca4eb8fd9654e4abb717a6c2562d05, type: 3}
+  - holdhand: {fileID: -737648868, guid: f0ca4eb8fd9654e4abb717a6c2562d05, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

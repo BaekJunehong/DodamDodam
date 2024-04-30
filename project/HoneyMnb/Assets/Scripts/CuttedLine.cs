@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CuttedLine : MonoBehaviour
 {
+    private hand Hand;
     public float Width = 0.4f;
 
     private LineRenderer lineRenderer;
@@ -11,6 +12,10 @@ public class CuttedLine : MonoBehaviour
 
     void Start()
     {
+        Hand = FindObjectOfType<hand>();
+        if(Hand != null){
+            //Hand.isHold += DrawPath;
+        }
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1; // 시작 위치를 라인에 추가
         lineRenderer.SetPosition(0, transform.position);
@@ -21,6 +26,10 @@ public class CuttedLine : MonoBehaviour
     void Update()
     {
         DrawPath();
+    }
+
+    private void  movingScissors(){
+
     }
     void DrawPath()
     {

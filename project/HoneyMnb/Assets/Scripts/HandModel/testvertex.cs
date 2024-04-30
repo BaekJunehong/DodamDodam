@@ -5,9 +5,6 @@ using HandUtils;
 
 public class testvertex : MonoBehaviour
 {
-    public Camera camera;
-    Vector3 test;
-    Vector3 test_data;
     // Start is called before the first frame update
     HandTracker _handtracker;
     void Start()
@@ -18,7 +15,7 @@ public class testvertex : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _handtracker.DrawHand();
+        //_handtracker.DrawHand();
         Vector3 test_data = _handtracker.GetCenter;
         Debug.Log(test_data);
         // Debug.Log(_handtracker.GetValidHand);

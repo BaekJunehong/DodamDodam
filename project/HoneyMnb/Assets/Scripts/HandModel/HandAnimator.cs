@@ -120,6 +120,7 @@ public sealed class HandAnimator : MonoBehaviour
         _pipeline.ProcessImage(_source.Texture);
 
         // UI update
+        if(_monitorUI == null) return;
         _monitorUI.texture = _source.Texture;
     }
 

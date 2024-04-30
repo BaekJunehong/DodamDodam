@@ -19,6 +19,7 @@ public struct ScanData{
 
 public abstract class Move : MonoBehaviour
 {
+    private hand Hand;
     public PointsData pointsArray;
     public ScanData data;
     public abstract void InitSetting();
@@ -72,7 +73,15 @@ public abstract class Move : MonoBehaviour
         data.previousPos = data.currentPos; // 위치 업데이트
         }
     }
-    void Start(){
-        pointsArray = new PointsData();
+    protected virtual void Start(){
+        Hand = FindObjectOfType<hand>();
+        if(Hand != null){
+            Hand.isHold += (isGrabbed)=> {
+                if(isGrabbed){
+                    ObjectMove(pointsArray.points_straight);
+                }
+            };
+        }
+        InitSetting();
     }
 }
