@@ -5,12 +5,15 @@ using UnityEngine;
 namespace HandUtils {
 public class HandTracker : MonoBehaviour
 {
-    int startflag;
-    int flag = 0;
-    float timer = 0f;
-    float inputDelay = 0.2f;
-    Vector3 CurrentVector = new Vector3(0, 0, 0);
-
+    private hand Hand;
+    private int startflag;
+    private int flag = 0;
+    private float timer = 0f;
+    private float inputDelay = 0.2f;
+    private Vector3 CurrentVector = new Vector3(0, 0, 0);
+    void Awake(){
+        Hand = FindObjectOfType<hand>();
+    }
     public float GetValid
         => HandAnimator.instance.GetScore;
 
@@ -62,7 +65,7 @@ public class HandTracker : MonoBehaviour
     //     => Vector3.Distance(start + dir, close) <= width ? true : false; 
 
 
-    public Vector3 Cutting()
+    public int Cutting()
     {
         int power = 0;
         Vector3 rfVector = HandAnimator.instance.GetPoint(9) - HandAnimator.instance.GetPoint(0);   //76
@@ -71,14 +74,22 @@ public class HandTracker : MonoBehaviour
         float angle_ = Mathf.Acos(dotProduct_);
         int angleInDegree = ((int)(angle_ * Mathf.Rad2Deg) == 90) ? 0 : (int)(angle_ * Mathf.Rad2Deg);
         int refangle = Mathf.Clamp(angleInDegree / 10, 0, 5);
-        
+        //핸들러로 손을 풀 때 처리
+        Hand = FindObjectOfType<hand>();
+        if(Hand != null){
+            Hand.isHold += (isGrabbed)=> {
+                if(!isGrabbed){
+                    timer = 0f;
+                }
+            };
+        }
         if (timer >= inputDelay)
         {
             flag = flag < refangle ? refangle : flag;
             timer = 0f;
             power = flag - startflag;
             startflag = refangle;
-            return power * GetDirection();
+            return power;
         }
         else if (timer > 0.0001f)
         {
@@ -94,14 +105,15 @@ public class HandTracker : MonoBehaviour
         {
             flag = refangle;
             startflag = flag;
-        } return power * GetDirection();
+        } return power;
     }
 
     public Vector3 GetDirection()
     {
         Vector3 A = HandAnimator.instance.GetPoint(5);
         Vector3 B = HandAnimator.instance.GetPoint(17);
-        Vector3 dir = new Vector3(-(A.x - B.x), A.x - B.x, 0);
+        Vector3 AB = A - B;
+        Vector3 dir = new Vector3(-AB.x, AB.y, 0);
         return dir.normalized;
 
     }

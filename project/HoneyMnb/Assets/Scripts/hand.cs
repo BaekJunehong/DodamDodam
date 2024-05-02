@@ -18,12 +18,10 @@ public class hand : MonoBehaviour
     void Update()
     {
         handPosition = _handtracker.GetCenter;
-        handPosition = new Vector3(-handPosition.x, handPosition.y, handPosition.z);
-        bool isGrabbed = _handtracker.IsHold(scissors);
+        bool isGrabbed = _handtracker.IsHold();
         isHold?.Invoke(isGrabbed);
         if(isGrabbed){
             ChangeStateToHold();
-            print(isGrabbed);
         }
         else{
             ChangeStateToOpen();

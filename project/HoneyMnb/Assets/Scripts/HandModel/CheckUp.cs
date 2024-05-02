@@ -16,6 +16,9 @@ public class CheckUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 direction = _handtracker.GetDirection();
+        print(direction);
          _handtracker.DrawHand();
+
     }
 }
