@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/zigzag.unity
     guid: 0b789bcdb12de7c4b934dfaf08628796
+  - enabled: 1
+    path: Assets/Scenes/Success.unity
+    guid: b47f620781eb0dc4f86a5cf7545fea0b
   m_configObjects: {}
