@@ -6,6 +6,7 @@ using pointsData;
 public class MoveStraight : Move
 {
     public GameObject hand;
+    private PointsData pointsArray;
     public override void InitSetting()
     {
         pointsArray = new PointsData();
@@ -16,7 +17,12 @@ public class MoveStraight : Move
         data.position = hand.transform.position;//잡았을 때의 손의 위치.
         data.isPreviousPosSet = false;
     }
-    
+
+    protected override Vector3[] GetPoints()
+    {
+        return pointsArray.points_straight;
+    }
+
     void Update(){
         data.position = hand.transform.position;
         Rotation();

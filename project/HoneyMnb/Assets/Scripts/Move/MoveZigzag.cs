@@ -5,6 +5,7 @@ using pointsData;
 public class MoveZigzag : Move
 {
     public GameObject hand;
+    private PointsData pointsArray;
     public override void InitSetting()
     {
         pointsArray = new PointsData();
@@ -15,7 +16,12 @@ public class MoveZigzag : Move
         data.position = hand.transform.position;//잡았을 때의 손의 위치.
         data.isPreviousPosSet = false;
     }
-    
+
+    protected override Vector3[] GetPoints()
+    {
+        return pointsArray.points_zigzag;
+    }
+
     void Update(){
         data.position = hand.transform.position;
         Rotation();

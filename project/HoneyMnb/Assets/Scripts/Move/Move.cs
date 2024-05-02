@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using pointsData;
 
 public struct ScanData{
     public float moveSpeed;
@@ -20,7 +19,6 @@ public struct ScanData{
 public abstract class Move : MonoBehaviour
 {
     private hand Hand;
-    public PointsData pointsArray;
     public ScanData data;
     public abstract void InitSetting();
 
@@ -78,10 +76,11 @@ public abstract class Move : MonoBehaviour
         if(Hand != null){
             Hand.isHold += (isGrabbed)=> {
                 if(isGrabbed){
-                    ObjectMove(pointsArray.points_straight);
+                    ObjectMove(GetPoints());
                 }
             };
         }
         InitSetting();
     }
+    protected abstract Vector3[] GetPoints();
 }
