@@ -11,6 +11,8 @@ public class loginRegister : MonoBehaviour
     private TcpClient client;
     private string message;
 
+    public GameObject signup_popup;
+
     void Start()
     {
         // 서버의 IP 주소와 포트 번호를 입력
@@ -55,6 +57,8 @@ public class loginRegister : MonoBehaviour
         ReadData(read_stream);
         write_stream.Close();
         read_stream.Close();
+
+        signup_popup.SetActive(false);
     }
 
     // 서버로 로그인 혹은 회원가입 데이터 전송
