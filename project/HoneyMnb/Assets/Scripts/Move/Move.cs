@@ -30,7 +30,7 @@ public abstract class Move : MonoBehaviour
             // 최초 실행 시, previousPos와 isPreviousPosSet 초기화
             data.previousPos = data.currentPos;
             data.isPreviousPosSet = true;
-        } else if (data.previousPos != data.currentPos) {
+        } else if (data.previousPos != data.currentPos && Vector3.Distance(data.previousPos, data.currentPos) > 0.5f) {
         // transform.position에 변화가 있을 때만 direction 계산
         Vector3 direction = (data.currentPos - data.previousPos).normalized;
 

@@ -11,10 +11,13 @@ public class CuttedPoint : MonoBehaviour
     public GameObject objectHand;
     public GameObject scissors;
     public GameObject objectOfLine;
+    public GameObject objectOfRedLine;
+    
 
     private HandTracker _handtracker;
     private LineRenderer lineRenderer;
     private LineRenderer dottedLine;
+    private LineRenderer redLine;
     private hand Hand;
     private float distance;
     private Vector3 closestPoint;
@@ -23,7 +26,10 @@ public class CuttedPoint : MonoBehaviour
     {
         dottedLine = objectOfLine.GetComponent<LineRenderer>();
         _handtracker = gameObject.AddComponent<HandTracker>();
+        redLine = objectOfRedLine.GetComponent<LineRenderer>();
         
+        
+
         Hand = FindObjectOfType<hand>();
         if(Hand != null){
             Hand.isHold += (isGrabbed)=> {
@@ -37,6 +43,9 @@ public class CuttedPoint : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.startWidth = Width;
         lineRenderer.endWidth = Width;
+
+        redLine.startWidth = Width;
+        redLine.endWidth = Width;
     }
     
     void DrawPath()
@@ -57,9 +66,24 @@ public class CuttedPoint : MonoBehaviour
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                 transform.position = destination;
             }
+            else if(distance >= difficulty){
+                redLine.positionCount = 2;
+                redLine.SetPosition(0, transform.position);
+                redLine.SetPosition(1, destination);
+                redLine.startWidth = Width;
+                redLine.endWidth = Width;
+                Invoke("DestroyRedLine", 0.5f);
+            }
 
         }
     }
+
+    private void DestroyRedLine()
+    {
+        // 라인 렌더러 제거
+        redLine.positionCount = 0;
+    }
+
     //배열 내 모든 선분 위의 최근접 점을 찾는 함수
     public void findClosestPointAndDistance(Vector3[] points, Vector3 position){
         distance = float.MaxValue;

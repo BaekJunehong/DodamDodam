@@ -1142,6 +1142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Width: 0.4
+  difficulty: 3
+  objectHand: {fileID: 0}
+  scissors: {fileID: 0}
+  objectOfLine: {fileID: 0}
+  objectOfRedLine: {fileID: 0}
 --- !u!95 &1628521899
 Animator:
   serializedVersion: 5
