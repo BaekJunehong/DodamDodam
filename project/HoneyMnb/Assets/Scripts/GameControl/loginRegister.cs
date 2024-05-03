@@ -101,7 +101,7 @@ public class loginRegister : MonoBehaviour
             Debug.Log(message);
 
             if (message == "Login successful\n") {
-                SceneManager.LoadScene("Success");
+                SceneManager.LoadScene("Camera");
             } else if (message == "User created successfully\n") {
                 GameObject.Find("signup_popup").SetActive(false);
             }
