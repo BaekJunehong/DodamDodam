@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using HandUtils;
+using difficulty;
 
 public class CuttedPoint : MonoBehaviour
 {
-    
+    public event Action Error;
     public float Width = 0.4f;
-    public float difficulty = 3f;
     public GameObject objectHand;
     public GameObject scissors;
     public GameObject objectOfLine;
     public GameObject objectOfRedLine;
     
-
     private HandTracker _handtracker;
     private LineRenderer lineRenderer;
     private LineRenderer dottedLine;
@@ -53,28 +51,37 @@ public class CuttedPoint : MonoBehaviour
         if(Vector3.Distance(scissors.transform.position, transform.position) <= 0.5f && Vector3.Distance(scissors.transform.position, objectHand.transform.position) <= 0.5f){//점과 가위의 거리가 가까울 때 발생한다.
             Vector3 direction = _handtracker.GetDirection();
             int power = _handtracker.Cutting();
-            Vector3 destination = transform.position + direction * power;//목표점 계산
+            if(power >= 1){
+                Vector3 destination = power >= 1 ? transform.position + direction * power : Vector3.zero;//목표점 계산
             
-            int pointsCount = dottedLine.positionCount;
-            Vector3[] points = new Vector3[pointsCount];
-            dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
-
-            findClosestPointAndDistance(points, destination);
-            //점선과의 거리가 난이도에 해당하는 굵기보다 작을 때만 그리기
-            if(distance <= difficulty && 1 <= power){
-                lineRenderer.positionCount += 1; // 점의 수를 증가시킴
-                lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
-                transform.position = destination;
+                int pointsCount = dottedLine.positionCount;
+                Vector3[] points = new Vector3[pointsCount];
+                dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
+                //경계를 벗어났을 때에 대한 예외 처리
+                bool flag = true;
+                for(int i=1; i<=5; i++){
+                    float ratio = (float)i / 5;
+                    Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
+                    findClosestPointAndDistance(points, divisionPoint);
+                    if(distance >= (float)Difficulty.DF){
+                        flag = false;
+                    }
+                }
+                if(flag == false){
+                    redLine.positionCount = 2;
+                    redLine.SetPosition(0, transform.position);
+                    redLine.SetPosition(1, destination);
+                    redLine.startWidth = Width;
+                    redLine.endWidth = Width;
+                    Invoke("DestroyRedLine", 0.5f);
+                }
+                //점선과의 거리가 난이도에 해당하는 굵기보다 작을 때만 그리기
+                else{
+                    lineRenderer.positionCount += 1; // 점의 수를 증가시킴
+                    lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
+                    transform.position = destination;
+                }
             }
-            else if(distance >= difficulty){
-                redLine.positionCount = 2;
-                redLine.SetPosition(0, transform.position);
-                redLine.SetPosition(1, destination);
-                redLine.startWidth = Width;
-                redLine.endWidth = Width;
-                Invoke("DestroyRedLine", 0.5f);
-            }
-
         }
     }
 
@@ -82,6 +89,7 @@ public class CuttedPoint : MonoBehaviour
     {
         // 라인 렌더러 제거
         redLine.positionCount = 0;
+        Error?.Invoke();
     }
 
     //배열 내 모든 선분 위의 최근접 점을 찾는 함수

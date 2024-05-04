@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/curve.unity
     guid: 0c3599a6b72d3204e8526fd6d4f74562
   - enabled: 1
-    path: Assets/Scenes/straight.unity
+    path: Assets/Scenes/GamePlay.unity
     guid: 38adcb3ecdd6cf545882882295343df4
   - enabled: 1
     path: Assets/Scenes/zigzag.unity

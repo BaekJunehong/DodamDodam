@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using sceneData;
 
+namespace gameCtrl{
 public class ChangeGame : MonoBehaviour
 {
+    public event Action sceneChange;
     Progress progress;
 
     // Start is called before the first frame update
@@ -17,19 +18,22 @@ public class ChangeGame : MonoBehaviour
     void Update()
     {
         if(progress.prog >= 100) {
-            switch (SceneManager.GetActiveScene().name)
+            switch (SceneData.SC)
             {
-                case "straight":
-                    SceneManager.LoadScene("zigzag");
+                case sceneType.straight:
+                    SceneData.SC = sceneType.curve;
+                    sceneChange?.Invoke();
                     break;
 
-                case "zigzag":
-                    SceneManager.LoadScene("curve");
+                case sceneType.curve:
+                    SceneData.SC = sceneType.zigzag;
+                    sceneChange?.Invoke();
                     break;
 
-                case "curve":
+                case sceneType.zigzag:
                     break;              
             }
         }
     }
+}
 }
