@@ -16,8 +16,8 @@ public class testvertex : MonoBehaviour
     void Update()
     {
         //_handtracker.DrawHand();
-        Vector3 test_data = _handtracker.GetCenter;
-        Debug.Log(test_data);
+        // Vector3 test_data = _handtracker.GetCenter();
+        // Debug.Log(test_data);
         // Debug.Log(_handtracker.GetValidHand);
         // Vector3 test_data = _handtracker.GetVertex(12);
         //Debug.Log(test_data);

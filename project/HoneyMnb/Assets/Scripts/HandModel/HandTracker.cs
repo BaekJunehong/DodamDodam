@@ -6,11 +6,23 @@ namespace HandUtils {
 public class HandTracker : MonoBehaviour
 {
     private hand Hand;
+    private int CenterIndex = 5;
     private int startflag;
     private int flag = 0;
     private float timer = 0f;
-    private float inputDelay = 0.2f;
+    private float inputDelay = 0.4f;
+    private float threshold = 0.0001f;
+    private float existtimer = 2f;
+    private float HoldCount = 0f;
+    private float CenterCount = 0f;
+    private float DirectionCount = 0f;
+    
+    private int sensitivity = 12;
+    private int init_value = 20;
+
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
+    private Vector3 CurrentDirection = new Vector3(0, 0, 0);
+
     void Awake(){
         Hand = FindObjectOfType<hand>();
     }
@@ -40,24 +52,54 @@ public class HandTracker : MonoBehaviour
         // float newZ = newMin.z + zRatio * (newMax.z - newMin.z);
         float newZ = 0f;
 
-        CurrentVector = new Vector3 (-newX, newY, newZ);
+        Vector3 result = new Vector3 (-newX, newY, newZ);
 
-        return CurrentVector;
+        return result;
     }
 
     public Vector3 GetVertex(int index)
-        => GetValid > 0.02f ? MappingVertex(HandAnimator.instance.GetPoint(index)) : CurrentVector;
- 
-    public Vector3 GetCenter
-        => GetValid > 0.02f ? MappingVertex(HandAnimator.instance.GetPoint(5)) : CurrentVector;
+    {
+        Vector3 newVector = MappingVertex(HandAnimator.instance.GetPoint(index));
+        CurrentVector = isHandexist() ?  newVector : CurrentVector;
+        return CurrentVector;
+    }
+
+    public Vector3 GetCenter()
+    {
+        if (isHandexist()) CenterCount = 0; else CenterCount += Time.deltaTime;
+        if (CenterCount > existtimer) return CurrentVector;
+        
+        Vector3 newVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
+        CurrentVector = TrembleControl() ?  newVector : CurrentVector;
+        return CurrentVector;
+    }
+
+    public bool isHandexist()
+    {
+        Vector3 refVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
+        float distance = Vector3.Distance(refVector, CurrentVector);
+        if (distance < threshold) return true;
+        return GetValid > 0.02f && distance >= 0.7f ? true : false;
+    }
+
+    public bool TrembleControl()
+    {
+        Vector3 refVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
+        float distance = Vector3.Distance(refVector, CurrentVector);
+        if (distance < threshold) return true;
+        return GetValid > 0.02f && distance >= 0.3f ? true : false;
+    }
 
     public bool IsHold()
     {
+        if (isHandexist()) HoldCount = 0; else HoldCount += Time.deltaTime;
+        if (HoldCount > existtimer) return false;
+
         Vector3 refVector = HandAnimator.instance.GetPoint(17) - HandAnimator.instance.GetPoint(0);    //1817
         Vector3 cVector = HandAnimator.instance.GetPoint(20) - HandAnimator.instance.GetPoint(17);      //1918
         float dotProduct = Vector3.Dot(refVector.normalized, cVector.normalized);
         float angle = Mathf.Acos(dotProduct);
-        int angleInDegrees = ((int)(angle * Mathf.Rad2Deg) == 90) ? 0 : (int)(angle * Mathf.Rad2Deg);
+        int angleInDegrees = Mathf.Abs(angle * Mathf.Rad2Deg - 90) < threshold ? 0 : (int)(angle * Mathf.Rad2Deg);
         return (angleInDegrees > 20) ? true : false;
     }
 
@@ -72,8 +114,8 @@ public class HandTracker : MonoBehaviour
         Vector3 coVector = HandAnimator.instance.GetPoint(12) - HandAnimator.instance.GetPoint(9);   //65
         float dotProduct_ = Vector3.Dot(rfVector.normalized, coVector.normalized);
         float angle_ = Mathf.Acos(dotProduct_);
-        int angleInDegree = ((int)(angle_ * Mathf.Rad2Deg) == 90) ? 0 : (int)(angle_ * Mathf.Rad2Deg);
-        int refangle = Mathf.Clamp(angleInDegree / 10, 0, 5);
+        int angleInDegree = Mathf.Abs(angle_ * Mathf.Rad2Deg - 90) < threshold ? 0 : (int)(angle_ * Mathf.Rad2Deg);
+        int refangle = Mathf.Clamp((angleInDegree - init_value) / sensitivity, 0, 5);
         //핸들러로 손을 풀 때 처리
         Hand = FindObjectOfType<hand>();
         if(Hand != null){
@@ -91,7 +133,7 @@ public class HandTracker : MonoBehaviour
             startflag = refangle;
             return power;
         }
-        else if (timer > 0.0001f)
+        else if (timer > threshold)
         {
             flag = flag < refangle ? refangle : flag;
             timer += Time.deltaTime;
@@ -110,12 +152,15 @@ public class HandTracker : MonoBehaviour
 
     public Vector3 GetDirection()
     {
+        if (isHandexist()) DirectionCount = 0; else DirectionCount += Time.deltaTime;
+        if (DirectionCount > existtimer) return CurrentVector;
+
         Vector3 A = HandAnimator.instance.GetPoint(5);
         Vector3 B = HandAnimator.instance.GetPoint(17);
         Vector3 AB = A - B;
         Vector3 dir = new Vector3(-AB.x, AB.y, 0);
-        return dir.normalized;
-
+        CurrentDirection = TrembleControl() ? dir.normalized : CurrentDirection;
+        return CurrentDirection;
     }
 }
 }
