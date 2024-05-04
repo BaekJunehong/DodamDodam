@@ -17,7 +17,7 @@ public class hand : MonoBehaviour
     }
     void Update()
     {
-        handPosition = _handtracker.GetCenter;
+        handPosition = _handtracker.GetCenter();
         bool isGrabbed = _handtracker.IsHold();
         isHold?.Invoke(isGrabbed);
         if(isGrabbed){

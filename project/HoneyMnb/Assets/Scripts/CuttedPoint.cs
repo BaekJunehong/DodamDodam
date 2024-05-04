@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using HandUtils;
 using difficulty;
+using handSide;
 
 public class CuttedPoint : MonoBehaviour
 {
@@ -59,6 +60,7 @@ public class CuttedPoint : MonoBehaviour
                 dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
                 //경계를 벗어났을 때에 대한 예외 처리
                 bool flag = true;
+                bool excapebit = false;
                 for(int i=1; i<=5; i++){
                     float ratio = (float)i / 5;
                     Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
@@ -66,8 +68,9 @@ public class CuttedPoint : MonoBehaviour
                     if(distance >= (float)Difficulty.DF){
                         flag = false;
                     }
+                    if ((HandSide.HS == whichSide.right && divisionPoint.x <= -8) || (HandSide.HS == whichSide.left && divisionPoint.x >= 8)) {excapebit = true;}
                 }
-                if(flag == false){
+                if(!flag && !excapebit){
                     redLine.positionCount = 2;
                     redLine.SetPosition(0, transform.position);
                     redLine.SetPosition(1, destination);
@@ -77,7 +80,7 @@ public class CuttedPoint : MonoBehaviour
                 }
                 //점선과의 거리가 난이도에 해당하는 굵기보다 작을 때만 그리기
                 else{
-                    lineRenderer.positionCount += 1; // 점의 수를 증가시킴
+                    lineRenderer.positionCount ++; // 점의 수를 증가시킴
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                     transform.position = destination;
                 }
