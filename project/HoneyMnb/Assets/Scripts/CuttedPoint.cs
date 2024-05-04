@@ -3,6 +3,7 @@ using UnityEngine;
 using HandUtils;
 using difficulty;
 using handSide;
+using sceneData;
 
 public class CuttedPoint : MonoBehaviour
 {
@@ -65,7 +66,8 @@ public class CuttedPoint : MonoBehaviour
                     float ratio = (float)i / 5;
                     Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
                     findClosestPointAndDistance(points, divisionPoint);
-                    if(distance >= (float)Difficulty.DF){
+                    float difficulty = SceneData.SC != sceneType.zigzag ? (float)Difficulty.DF : Difficulty.DF == difficultyLevel.easy? 2f : Difficulty.DF == difficultyLevel.normal? 1.5f : 1f;
+                    if(distance >= difficulty){
                         flag = false;
                     }
                     if ((HandSide.HS == whichSide.right && divisionPoint.x <= -8) || (HandSide.HS == whichSide.left && divisionPoint.x >= 8)) {excapebit = true;}
