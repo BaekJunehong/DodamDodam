@@ -828,7 +828,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1960366167, guid: f0ca4eb8fd9654e4abb717a6c2562d05, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bfc8699a72bb581469f557c071d8a52a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -868,8 +868,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scissors: {fileID: 903902187}
-  openhand: {fileID: -1960366167, guid: f0ca4eb8fd9654e4abb717a6c2562d05, type: 3}
-  holdhand: {fileID: -737648868, guid: f0ca4eb8fd9654e4abb717a6c2562d05, type: 3}
+  openhand: {fileID: 21300000, guid: bfc8699a72bb581469f557c071d8a52a, type: 3}
+  holdhand: {fileID: 21300000, guid: 3aa607f75fa372748bdf5eeaa3dbd3ff, type: 3}
 --- !u!1 &1071790595
 GameObject:
   m_ObjectHideFlags: 0
