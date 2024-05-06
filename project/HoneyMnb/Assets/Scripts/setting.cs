@@ -3,41 +3,113 @@ using System.Collections.Generic;
 using UnityEngine;
 using difficulty;
 using handSide;
+using mode;
 
 public class Setting : MonoBehaviour
 {
-    public void onModeClicked()
+    public GameObject mask;
+    public GameObject handSelect;
+    public GameObject modeSelect;
+    public GameObject difficultySelect;
+    public void onPlayClicked()
     {
-        string mode = gameObject.name;
-        setMode(mode);
+        setMode(mode.playMode.play);
+        modeOff();
+        difficultyOn();
     }
 
-    public void onDifficultyClicked()
+    public void onTestClicked()
     {
-        switch (gameObject.name)
-        {
-            case "Easy":
-                setDifficulty(difficulty.difficultyLevel.easy); 
-                break;
-
-            case "Normal":
-                setDifficulty(difficulty.difficultyLevel.normal);
-                break;
-
-            case "Hard":
-                setDifficulty(difficulty.difficultyLevel.hard);
-                break;
-        }
+        setMode(mode.playMode.test);
+        modeOff();
+        handOn();  
     }
 
-    public void setMode(string mode)
+    public void onEasyClicked()
     {
-        Debug.Log(mode);
+        setDifficulty(difficulty.difficultyLevel.easy); 
+        difficultyOff();
+        handOn();
+    }
+
+    public void onNormalClicked()
+    {
+        setDifficulty(difficulty.difficultyLevel.normal); 
+        difficultyOff();
+        handOn();
+    }
+
+    public void onHardClicked()
+    {
+        setDifficulty(difficulty.difficultyLevel.hard); 
+        difficultyOff();
+        handOn();
+    }
+
+    public void onLeftClicked()
+    {
+        setHand(handSide.whichSide.left);
+        handOff();
+        maskOff();
+    }
+
+    public void onRightClicked()
+    {
+        setHand(handSide.whichSide.right);
+        handOff();
+        maskOff();
+    }
+
+    public void setMode(mode.playMode m)
+    {
+        Mode.M = m;
     }
 
     public void setDifficulty(difficulty.difficultyLevel dif)
     {
         Difficulty.DF = dif;
-        Debug.Log(Difficulty.DF);
+    }
+
+    public void setHand(handSide.whichSide hand)
+    {
+        HandSide.HS = hand;
+    }
+
+    public void maskOn()
+    {
+        mask.SetActive(true);
+    }
+
+    public void maskOff()
+    {
+        mask.SetActive(false);
+    }
+    public void modeOn()
+    {
+        modeSelect.SetActive(true);
+    }
+    public void modeOff()
+    {
+        modeSelect.SetActive(false);
+    }
+
+    public void difficultyOn()
+    {
+        difficultySelect.SetActive(true);
+    }
+
+    public void difficultyOff()
+    {
+        difficultySelect.SetActive(false);
+    }
+
+    public void handOn()
+    {
+        handSelect.SetActive(true);
+    }
+
+    public void handOff()
+    {
+        handSelect.SetActive(false);
     }
 }
