@@ -24,6 +24,8 @@ public class HandTracker : MonoBehaviour
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
     private Vector3 CurrentDirection = new Vector3(0, 0, 0);
 
+    private bool holdtest = false;
+
     void Awake(){
         Hand = FindObjectOfType<hand>();
     }
@@ -115,16 +117,26 @@ public class HandTracker : MonoBehaviour
     //     return (angleInDegrees > 15) ? true : false;
     // }
 
+    // public bool IsHold()
+    // {
+    //     for(int i = 5; i <= 17; i += 4)
+    //     {
+    //         if (anglecalc(i) > 40) return true;
+    //     }
+
+    //     if(!WaitCount) WaitCount = true;
+    //     return false;
+    // }
     public bool IsHold()
     {
         for(int i = 5; i <= 17; i += 4)
         {
-            if (anglecalc(i) > 25) return true;
+            if (anglecalc(i) > 40) holdtest = true;
         }
 
-        if(!WaitCount) WaitCount = true;
-        return false;
+        return holdtest;
     }
+
 
     // public bool isAvailableCutting(Vector3 start, Vector3 dir, Vector3 close, float width)
     //     => Vector3.Distance(start + dir, close) <= width ? true : false; 

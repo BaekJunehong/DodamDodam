@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using sceneData;
+using pointsData;
+using difficulty;
 
 public struct ScanData{
     public float moveSpeed;
     public float scanningDistance;
     public Vector3 position;
-    public Vector3 previousPos;
-    public Vector3 currentPos;
     public bool isPreviousPosSet;
-
+    public sceneType currentScene;
+    public difficultyLevel difficulty;
 }
 
 public abstract class Move : MonoBehaviour
 {
+    public PointsData pointsArray;
     private hand Hand;
+    private Vector3 start;
+    private Vector3 end;
     public ScanData data;
     public abstract void InitSetting();
     
@@ -25,22 +30,33 @@ public abstract class Move : MonoBehaviour
     }
 
     public void Rotation(){
-        data.currentPos = transform.position;
-        if (!data.isPreviousPosSet) {
-            // 최초 실행 시, previousPos와 isPreviousPosSet 초기화
-            data.previousPos = data.currentPos;
-            data.isPreviousPosSet = true;
-        } else if (data.previousPos != data.currentPos && Vector3.Distance(data.previousPos, data.currentPos) > 0.5f) {
-        // transform.position에 변화가 있을 때만 direction 계산
-        Vector3 direction = (data.currentPos - data.previousPos).normalized;
+        data.currentScene = SceneData.SC;
+        data.difficulty = Difficulty.DF;
+        Vector3[] points = null;
+        switch(SceneData.SC){
+            
+            case sceneType.straight :
+            points = data.difficulty == difficultyLevel.hard ? pointsArray.points_straight_hard : pointsArray.points_straight;
+            break;
+            case sceneType.curve :
+            points = data.difficulty == difficultyLevel.easy ? pointsArray.points_curve_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_curve_normal : pointsArray.points_curve_hard;
+            break;
+            case sceneType.zigzag :
+            points = data.difficulty == difficultyLevel.easy? pointsArray.points_zigzag_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_zigzag_normal : pointsArray.points_zigzag_hard;
+            break;
+        }
+        if (points == null) {
+            print("null!");
+            return;
+            }
+
+        Vector3 direction = FindDirectionOnLine(points, transform.position);
 
         float angleRad = Mathf.Atan2(direction.y, direction.x);
         float angleDeg = angleRad * Mathf.Rad2Deg;
         angleDeg += 270;
         transform.rotation = Quaternion.Euler(0, 0, angleDeg);
-
-        data.previousPos = data.currentPos; // 위치 업데이트
-        }
+        
     }
     protected virtual void Start(){
         Hand = FindObjectOfType<hand>();
@@ -52,5 +68,15 @@ public abstract class Move : MonoBehaviour
             };
         }
         InitSetting();
+    }
+
+    public Vector3 FindDirectionOnLine(Vector3[] arr, Vector3 P){
+        for(int i=0; i<arr.Length-1; i++){
+            if(arr[i].x <= P.x && P.x <= arr[i+1].x){
+                start = arr[i];
+                end = arr[i+1];
+            }
+        }
+        return start - end;
     }
 }
