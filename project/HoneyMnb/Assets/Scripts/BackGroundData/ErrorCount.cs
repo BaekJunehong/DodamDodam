@@ -21,6 +21,6 @@ public class ErrorCount : MonoBehaviour
         printError();
     }
     private void printError(){
-        error.text = string.Format("Error : {0}", errorCount);
+        error.text = string.Format("{0}", errorCount);
     }
 }

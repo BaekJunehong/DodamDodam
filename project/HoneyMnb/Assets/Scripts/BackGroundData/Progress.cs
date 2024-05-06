@@ -13,7 +13,6 @@ public class Progress : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        printProgress();
     }
     private void printProgress(){
         Vector3 position = cuttedPoint.transform.position;
