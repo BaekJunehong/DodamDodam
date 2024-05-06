@@ -14,7 +14,7 @@ public class HandTracker : MonoBehaviour
     private float threshold = 0.0001f;
     private float existtimer = 2f;
     private bool WaitCount = false;
-    private float HoldCount = 0f;
+    // private float HoldCount = 0f;
     private float CenterCount = 0f;
     private float DirectionCount = 0f;
     
@@ -24,7 +24,6 @@ public class HandTracker : MonoBehaviour
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
     private Vector3 CurrentDirection = new Vector3(0, 0, 0);
 
-    private bool holdtest = false;
 
     void Awake(){
         Hand = FindObjectOfType<hand>();
@@ -79,14 +78,16 @@ public class HandTracker : MonoBehaviour
 
     public bool isHandexist()
     {
+        return true;        // 테스트를 위한 작동 중지
         Vector3 refVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
         float distance = Vector3.Distance(refVector, CurrentVector);
         if (distance < threshold) return true;
-        return GetValid > 0.02f && distance >= 1f ? true : false;
+        return GetValid > 0.02f || distance >= 2f ? true : false;
     }
 
     public bool TrembleControl()
     {
+        return true;        // 테스트를 위한 작동 중지
         Vector3 refVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
         float distance = Vector3.Distance(refVector, CurrentVector);
         if (distance < threshold) return true;
@@ -103,46 +104,34 @@ public class HandTracker : MonoBehaviour
         return angleInDegrees;
     }
 
+    public bool IsHold()            // 집게 동작 Hold
+    {
+        for(int i = 13; i <= 17; i += 4)
+        {
+            if (anglecalc(i) > 20) return true;
+        }
 
-    // public bool IsHold()
-    // {
-    //     if (isHandexist()) HoldCount = 0; else HoldCount += Time.deltaTime;
-    //     if (HoldCount > existtimer) return false;
+        if(!WaitCount) WaitCount = true;
+        return false;
+    }
 
-    //     Vector3 refVector = HandAnimator.instance.GetPoint(17) - HandAnimator.instance.GetPoint(0);    //1817
-    //     Vector3 cVector = HandAnimator.instance.GetPoint(20) - HandAnimator.instance.GetPoint(17);      //1918
-    //     float dotProduct = Vector3.Dot(refVector.normalized, cVector.normalized);
-    //     float angle = Mathf.Acos(dotProduct);
-    //     int angleInDegrees = Mathf.Abs(angle * Mathf.Rad2Deg - 90) < threshold ? 0 : (int)(angle * Mathf.Rad2Deg);
-    //     return (angleInDegrees > 15) ? true : false;
-    // }
-
-    // public bool IsHold()
+    // public bool IsHold()            // 악수 동작 Hold
     // {
     //     for(int i = 5; i <= 17; i += 4)
     //     {
-    //         if (anglecalc(i) > 40) return true;
+    //         if (anglecalc(i) > 25) return true;
     //     }
 
     //     if(!WaitCount) WaitCount = true;
     //     return false;
     // }
-    public bool IsHold()
-    {
-        for(int i = 5; i <= 17; i += 4)
-        {
-            if (anglecalc(i) > 40) holdtest = true;
-        }
 
-        return holdtest;
-    }
 
 
     // public bool isAvailableCutting(Vector3 start, Vector3 dir, Vector3 close, float width)
     //     => Vector3.Distance(start + dir, close) <= width ? true : false; 
 
-
-    public int Cutting()
+    public int Cutting()        // 집게 동작 Cutting
     {
         int power = 0;
         int refangle = 0;
@@ -152,7 +141,7 @@ public class HandTracker : MonoBehaviour
         // float angle_ = Mathf.Acos(dotProduct_);
         // int angleInDegree = Mathf.Abs(angle_ * Mathf.Rad2Deg - 90) < threshold ? 0 : (int)(angle_ * Mathf.Rad2Deg);
         // int refangle = Mathf.Clamp((angleInDegree - init_value) / sensitivity, 0, 5);
-        for(int i = 5; i <= 17; i += 4)
+        for(int i = 5; i <= 9; i += 4)
         {
             int currentflag = Mathf.Clamp((anglecalc(i) - init_value) / sensitivity, 0, 5);
             refangle = refangle < currentflag ? currentflag : refangle; 
@@ -190,6 +179,50 @@ public class HandTracker : MonoBehaviour
             startflag = flag;
         } return power;
     }
+
+    // public int Cutting()        // 악수 동작 Cutting
+    // {
+    //     int power = 0;
+    //     int refangle = 0;
+
+    //     for(int i = 5; i <= 17; i += 4)
+    //     {
+    //         int currentflag = Mathf.Clamp((anglecalc(i) - init_value) / sensitivity, 0, 5);
+    //         refangle = refangle < currentflag ? currentflag : refangle; 
+    //     }
+    //     //핸들러로 손을 풀 때 처리
+    //     Hand = FindObjectOfType<hand>();
+    //     if(Hand != null){
+    //         Hand.isHold += (isGrabbed)=> {
+    //             if(!isGrabbed){
+    //                 timer = 0f;
+    //             }
+    //         };
+    //     }
+    //     if (timer >= inputDelay)
+    //     {
+    //         flag = flag < refangle ? refangle : flag;
+    //         timer = 0f;
+    //         power = flag - startflag;
+    //         startflag = refangle;
+    //         return power;
+    //     }
+    //     else if (timer > threshold)
+    //     {
+    //         flag = flag < refangle ? refangle : flag;
+    //         timer += Time.deltaTime;
+    //     }
+    //     else if (flag < refangle)
+    //     {
+    //         flag = refangle;
+    //         timer += Time.deltaTime;    
+    //     }
+    //     else
+    //     {
+    //         flag = refangle;
+    //         startflag = flag;
+    //     } return power;
+    // }
 
     public Vector3 GetDirection()
     {

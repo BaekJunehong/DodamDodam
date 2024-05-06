@@ -4,6 +4,7 @@ using UnityEngine;
 using sceneData;
 using pointsData;
 using difficulty;
+using handSide;
 
 public struct ScanData{
     public float moveSpeed;
@@ -55,7 +56,7 @@ public abstract class Move : MonoBehaviour
         float angleRad = Mathf.Atan2(direction.y, direction.x);
         float angleDeg = angleRad * Mathf.Rad2Deg;
         angleDeg += 270;
-        transform.rotation = Quaternion.Euler(0, 0, angleDeg);
+        transform.rotation = HandSide.HS == whichSide.right ? Quaternion.Euler(0, 0, angleDeg) : Quaternion.Euler(0, 0, angleDeg + 180);
         
     }
     protected virtual void Start(){

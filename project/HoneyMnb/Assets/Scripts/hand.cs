@@ -1,6 +1,7 @@
 using UnityEngine;
 using HandUtils;
 using System;
+using handSide;
 
 public class hand : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class hand : MonoBehaviour
             ChangeStateToOpen();
         }
         transform.position = Vector3.MoveTowards(transform.position, handPosition, moveSpeed * Time.deltaTime);
-        
+        transform.rotation = HandSide.HS == whichSide.right ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
     }
     public void ChangeStateToHold()
     {
