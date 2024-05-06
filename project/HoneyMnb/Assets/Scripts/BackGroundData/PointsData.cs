@@ -27,13 +27,23 @@ namespace pointsData{
             points_curve_easy = new Vector3[curveNum];
             points_curve_normal = new Vector3[curveNum];
             points_curve_hard = new Vector3[curveNum];
+
+            RectTransform paperRT = GameObject.Find("paper").GetComponent<RectTransform>();
             
+            Vector2 rightTop = new Vector2((paperRT.rect.width / 2f)*0.9f, (paperRT.rect.height / 2f)*0.9f);
 
-            points_straight[0] = new Vector3(-8, 0, 0);
-            points_straight[1] = new Vector3(8, 0, 0);
+            Vector3 rightTopPosition = new Vector3(rightTop.x, rightTop.y, 0f);
 
-            points_straight_hard[0] = new Vector3(-8, 3f, 0);
-            points_straight_hard[1] = new Vector3(8, -3f, 0);
+            Vector3 worldPosition = paperRT.TransformPoint(rightTopPosition);
+
+            float posX = worldPosition.x;
+            float posY = worldPosition.y;
+
+            points_straight[0] = new Vector3(-posX, 0, 0);
+            points_straight[1] = new Vector3(posX, 0, 0);
+
+            points_straight_hard[0] = new Vector3(-posX, posY, 0);
+            points_straight_hard[1] = new Vector3(posX, -posY, 0);
 
             for(int i = 0; i < zigzagNum_easy; i++){
                 points_zigzag_easy[i] = i%2==0 ? new Vector3(4*i-8,-1f,0) : new Vector3(4*i-8,1f,0);
