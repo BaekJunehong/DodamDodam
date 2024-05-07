@@ -5,7 +5,7 @@ namespace handSide{
     }
     public class HandSide
     {
-        private static whichSide side = whichSide.left;
+        private static whichSide side = whichSide.right;
 
         public static whichSide HS{
             get => side;
