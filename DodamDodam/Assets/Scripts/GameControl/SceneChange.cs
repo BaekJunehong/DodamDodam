@@ -14,7 +14,7 @@ public class SceneChange : MonoBehaviour
                 SceneManager.LoadScene("Camera");
                 break;
             case "game_start_button":
-                SceneManager.LoadScene("straight");
+                SceneManager.LoadScene("GamePlay");
                 break;
 
             case "title_button":
