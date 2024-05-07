@@ -1612,7 +1612,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 455734239}
-        m_TargetAssemblyTypeName: loginRegister, Assembly-CSharp
+        m_TargetAssemblyTypeName: NetClient, Assembly-CSharp
         m_MethodName: OnSignUpButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -4705,7 +4705,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1839123560}
-        m_TargetAssemblyTypeName: loginRegister, Assembly-CSharp
+        m_TargetAssemblyTypeName: NetClient, Assembly-CSharp
         m_MethodName: OnLoginButtonClicked
         m_Mode: 1
         m_Arguments:

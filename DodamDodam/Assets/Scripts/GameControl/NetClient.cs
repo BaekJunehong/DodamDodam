@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class loginRegister : MonoBehaviour
+public class NetClient : MonoBehaviour
 {
     private TcpClient client;
     private string serverIP = "35.216.33.115";
@@ -74,12 +74,38 @@ public class loginRegister : MonoBehaviour
         read_stream.Close();
     }
 
+    // 결과 팝업에서 저장 버튼 클릭 시 점수 저장 기능 수행
+    public void OnSaveButtonClicked()
+    {
+        if (client == null || !client.Connected) {
+            // TcpClient에서 서버로 소켓 연결
+            try {
+                client = new TcpClient(serverIP, serverPort);
+            } catch (Exception e) {
+                Debug.Log(e);
+                return;
+            }
+        }
+
+        string name = GameObject.Find("name_text").GetComponent<TextMeshProUGUI>().text;
+        string score = GameObject.Find("score_text").GetComponent<TextMeshProUGUI>().text;
+
+        NetworkStream write_stream = client.GetStream();
+        SendData(write_stream, "save", name, score);
+        NetworkStream read_stream = client.GetStream();
+        while (!read_stream.DataAvailable);
+        ReadData(read_stream);
+        write_stream.Close();
+        read_stream.Close();
+    }
+
     // 서버로 로그인 혹은 회원가입 데이터 전송
-    private void SendData(NetworkStream write_stream, string command, string username, string password, string name = "", string birthdate = "")
+    private void SendData(NetworkStream write_stream, string command, string username = "", string password = "", 
+    string name = "", string birthdate = "", string score = "")
     {
         try {
             if (write_stream.CanWrite) {
-                string data = $"{command},{username},{password},{name},{birthdate}";
+                string data = $"{command},{username},{password},{name},{birthdate},{score}";
                 byte[] bytes = Encoding.UTF8.GetBytes(data);
 
                 write_stream.Write(bytes, 0, bytes.Length);
