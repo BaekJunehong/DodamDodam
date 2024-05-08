@@ -42,36 +42,38 @@ namespace pointsData{
             points_straight[0] = new Vector3(-posX, 0, 0);
             points_straight[1] = new Vector3(posX, 0, 0);
 
-            points_straight_hard[0] = new Vector3(-posX, posY, 0);
-            points_straight_hard[1] = new Vector3(posX, -posY, 0);
+            points_straight_hard[0] = new Vector3(-posX, posY*0.8f, 0);
+            points_straight_hard[1] = new Vector3(posX, -posY*0.8f, 0);
+
+            
 
             for(int i = 0; i < zigzagNum_easy; i++){
-                points_zigzag_easy[i] = i%2==0 ? new Vector3(4*i-8,-1f,0) : new Vector3(4*i-8,1f,0);
+                points_zigzag_easy[i] = i%2==0 ? new Vector3((posX/2f)*i-posX,-1f,0) : new Vector3((posX/2f)*i-posX,1f,0);
             }
 
             for(int i = 0; i < zigzagNum_normal; i++){
-                points_zigzag_normal[i] = i%2==0 ? new Vector3(8f*(float)i/3f-8,-1f,0) : new Vector3(8f*(float)i/3f-8,1f,0);
+                points_zigzag_normal[i] = i%2==0 ? new Vector3(posX*(float)i/3f-posX,-1f,0) : new Vector3(posX*(float)i/3f-posX,1f,0);
             }
 
             for(int i = 0; i < zigzagNum_hard; i++){
-                points_zigzag_hard[i] = i%2==0 ? new Vector3(2*i-8,-2f,0) : new Vector3(2*i-8,2f,0);
+                points_zigzag_hard[i] = i%2==0 ? new Vector3(2*i-posX,-2f,0) : new Vector3(2*i-posX,2f,0);
             }
 
             for(int i = 0; i < curveNum; i++){
-            float x = (i / (float)(curveNum-1) * 2f - 1f) * 8f;
-            float y = -1f / 32f * x * x + 1f;
+            float x = (i / (float)(curveNum-1) * 2f - 1f) * posX;
+            float y = -1f / 32f * x * x + (posY/4f);
             points_curve_easy[i] = new Vector3(x, y, 0);
             }
 
             for(int i = 0; i < curveNum; i++){
-            float x = (i / (float)(curveNum-1) * 2f - 1f) * 8f;
-            float y = -2f / 32f * x * x + 2f;
+            float x = (i / (float)(curveNum-1) * 2f - 1f) * posX;
+            float y = -2f / 32f * x * x + (posY/2f);
             points_curve_normal[i] = new Vector3(x, y, 0);
             }
 
             for(int i = 0; i < curveNum; i++){
-            float x = (i / (float)(curveNum-1) * 2f - 1f) * 8f;
-            float y = -3f / 32f * x * x + 3f;
+            float x = (i / (float)(curveNum-1) * 2f - 1f) * posX;
+            float y = -3f / 32f * x * x + (3*posY/4);
             points_curve_hard[i] = new Vector3(x, y, 0);
             }
         }

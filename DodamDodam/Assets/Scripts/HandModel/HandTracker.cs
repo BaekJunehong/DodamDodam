@@ -6,11 +6,11 @@ namespace HandUtils {
 public class HandTracker : MonoBehaviour
 {
     private hand Hand;
-    private int CenterIndex = 5;
+    private int CenterIndex = 14;
     private int flag = 0;
     private bool cancut = false;
     private float timer = 0f;
-    private float inputDelay = 0.2f;
+    private float inputDelay = 0.1f;
     private float threshold = 0.0001f;
 
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
@@ -102,17 +102,16 @@ public class HandTracker : MonoBehaviour
         return angleInDegrees;
     }
 
-    public bool IsHold()
+public bool IsHold()
+{
+    if (!isHandexist()) return false;
+
+    for(int i = 13; i <= 17; i += 4)
     {
-        if (!isHandexist()) return false;
-
-        for(int i = 5; i <= 17; i += 4)
-        {
-            if (anglecalc(i) > 20) return true;
-        }
-        return false;
+        if (anglecalc(i) > 30) return true;
     }
-
+    return false;
+}
 
 
     // public bool isAvailableCutting(Vector3 start, Vector3 dir, Vector3 close, float width)
@@ -158,46 +157,46 @@ public class HandTracker : MonoBehaviour
     //     }
     // }
 
-    public int Cutting()            // t/f 버전
-    {
-        float a = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(8));
-        float b = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(12));
-        float dist = a > b ? a : b;
+public int Cutting()            // t/f 버전
+{
+    float a = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(8));
+    float b = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(12));
+    float dist = a + b; // a와 b의 합산으로 dist 계산
 
-        if (timer >= inputDelay)
-        {
-            flag = 0;
-            timer = 0;
-            cancut = false;
-            return 2;
-        }
-        else if (flag == 1)
-        {
-            timer += Time.deltaTime;
-            return 0;
-        }
-        else if (dist < 0.07f)
-        {
-            if (cancut)
-            {
-                flag = 1;
-                timer += Time.deltaTime;
-            }
-            return 0;
-        }
-        else
-        {
-            if (dist > 0.12f) cancut = true;       // 정면
-            // if (dist > 0.1f) cancut = true;     // 옆면 
-            return 0;
-        }
+    if (timer >= inputDelay)
+    {
+        flag = 0;
+        timer = 0;
+        cancut = false;
+        return 2;
     }
+    else if (flag == 1)
+    {
+        timer += Time.deltaTime;
+        return 0;
+    }
+    else if (dist < 0.1f)
+    {
+        if (cancut)
+        {
+            flag = 1;
+            timer += Time.deltaTime;
+        }
+        return 0;
+    }
+    else
+    {
+        // if (dist > 0.12f) cancut = true;       // 정면
+        if (dist > 0.1f) cancut = true;     // 옆면 
+        return 0;
+    }
+}
 
     public Vector3 GetDirection()
     {
         if (!isHandexist()) return CurrentDirection;
 
-        Vector3 A = HandAnimator.instance.GetPoint(5);      // 5
+        Vector3 A = HandAnimator.instance.GetPoint(14);      // 5
         Vector3 B = HandAnimator.instance.GetPoint(17);     // 17
         Vector3 AB = A - B;
         Vector3 dir = new Vector3(-AB.x, AB.y, 0);

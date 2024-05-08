@@ -7,7 +7,7 @@ namespace difficulty{
         }
     public class Difficulty
     {
-        private static difficultyLevel diff = difficultyLevel.normal;
+        private static difficultyLevel diff = difficultyLevel.hard;
 
         public static difficultyLevel DF{
             get => diff;
