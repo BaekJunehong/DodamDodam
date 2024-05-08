@@ -130,6 +130,13 @@ public class NetClient : MonoBehaviour
                 SceneManager.LoadScene("Camera");
             } else if (message == "User created successfully\n") {
                 GameObject.Find("signup_popup").SetActive(false);
+            } else if (message == "Score saved successfully\n") {
+                bytesRead = read_stream.Read(data, 0, data.Length);
+                message = Encoding.UTF8.GetString(data, 0, bytesRead);
+                Debug.Log(message);
+
+                string[] stat = message.Split(',');
+                GameObject.Find("avg_text").GetComponent<TextMeshProUGUI>().text = "평균: " + stat[0] + ", 표준편차: " + stat[1];
             }
         } catch (SocketException s) {
             Debug.Log(s);
