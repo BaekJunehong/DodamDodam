@@ -7,8 +7,8 @@ public class HandTracker : MonoBehaviour
 {
     private hand Hand;
     private HandAnimator HA;
-    private int CenterIndex = 14;
-    // private int CenterIndex = 5;
+    // private int CenterIndex = 14;
+    private int CenterIndex = 5;
     private int flag = 0;
     private bool cancut = false;
     private float timer = 0f;
@@ -141,10 +141,10 @@ public class HandTracker : MonoBehaviour
     {
         if (!isHandexist()) return CurrentDirection;
 
-        // Vector3 A = HA.GetPoint(5);      // 5
-        // Vector3 B = HA.GetPoint(17);     // 17
-        Vector3 A = HA.GetPoint(14);      // 5
+        Vector3 A = HA.GetPoint(5);      // 5
         Vector3 B = HA.GetPoint(17);     // 17
+        // Vector3 A = HA.GetPoint(14);      // 5
+        // Vector3 B = HA.GetPoint(17);     // 17
         Vector3 AB = A - B;
         Vector3 dir = new Vector3(-AB.x, AB.y, 0);
         CurrentDirection = dir.normalized;

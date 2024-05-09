@@ -9,7 +9,7 @@ public class MoveScissors : Move
     public override void InitSetting()
     {
         pointsArray = new PointsData();
-        data.moveSpeed = 7f;
+        data.moveSpeed = 10f;
         data.scanningDistance = 0.7f;
         data.position = hand.transform.position;//잡았을 때의 손의 위치.
         data.isPreviousPosSet = false;
