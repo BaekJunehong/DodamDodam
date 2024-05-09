@@ -9,8 +9,6 @@ public sealed class HandAnimator : MonoBehaviour
 {
     #region Public method
 
-    public static HandAnimator instance;
-
     public Vector3 GetPoint(int index)
       // => transform.TransformPoint(_pipeline.GetKeyPoint(index));
       // => Camera.main.WorldToScreenPoint(_pipeline.GetKeyPoint(index));
@@ -97,14 +95,6 @@ public sealed class HandAnimator : MonoBehaviour
     #endregion
 
     #region MonoBehaviour implementation
-
-    private void Awake()
-    {
-        if(HandAnimator.instance == null)
-        {
-          HandAnimator.instance = this;
-        }
-    }
 
     void Start()
       => _pipeline = new HandPipeline(_resources);

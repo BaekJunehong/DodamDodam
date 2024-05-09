@@ -8,7 +8,7 @@ using sceneData;
 public class CuttedPoint : MonoBehaviour
 {
     public event Action Error;
-    public float Width = 0.4f;
+    public float Width = 0.25f;
     public GameObject objectHand;
     public GameObject scissors;
     public GameObject objectOfLine;
@@ -50,7 +50,7 @@ public class CuttedPoint : MonoBehaviour
     
     void DrawPath()
     {
-        if(Vector3.Distance(scissors.transform.position, transform.position) <= 0.5f && Vector3.Distance(scissors.transform.position, objectHand.transform.position) <= 0.5f){//점과 가위의 거리가 가까울 때 발생한다.
+        if(Vector3.Distance(scissors.transform.position, transform.position) <= 0.7f && Vector3.Distance(scissors.transform.position, objectHand.transform.position) <= 0.5f){//점과 가위의 거리가 가까울 때 발생한다.
             Vector3 direction = _handtracker.GetDirection();
             int power = _handtracker.Cutting();
             if(power >= 1){
