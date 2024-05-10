@@ -56,7 +56,7 @@ namespace pointsData{
             }
 
             for(int i = 0; i < zigzagNum_hard; i++){
-                points_zigzag_hard[i] = i%2==0 ? new Vector3(2*i-posX,-2f,0) : new Vector3(2*i-posX,2f,0);
+                points_zigzag_hard[i] = i%2==0 ? new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,-2f,0) : new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,2f,0);
             }
 
             for(int i = 0; i < curveNum; i++){
