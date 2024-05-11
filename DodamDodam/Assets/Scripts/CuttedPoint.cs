@@ -22,12 +22,14 @@ public class CuttedPoint : MonoBehaviour
     private hand Hand;
     private float distance;
     private Vector3 closestPoint;
+    private RectTransform paperRT;
     private DottedLine dottedData;
 //    private ChangeGame gCtrl;
 
 
     void Start()
     {
+        paperRT = GameObject.Find("paper").GetComponent<RectTransform>();
         dottedLine = objectOfLine.GetComponent<LineRenderer>();
         dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
@@ -79,7 +81,7 @@ public class CuttedPoint : MonoBehaviour
                     if(distance >= difficulty){
                         flag = false;
                     }
-                    if ((HandSide.HS == whichSide.right && divisionPoint.x <= -8) || (HandSide.HS == whichSide.left && divisionPoint.x >= 8)) {excapebit = true;}
+                    if ((HandSide.HS == whichSide.right && divisionPoint.x <= -(paperRT.rect.width / 2f)*0.9f) || (HandSide.HS == whichSide.left && divisionPoint.x >= (paperRT.rect.width / 2f)*0.9f)) {excapebit = true;}
                 }
                 if(!flag && !excapebit){
                     redLine.positionCount = 2;
