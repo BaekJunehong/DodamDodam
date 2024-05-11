@@ -13,6 +13,7 @@ public class CuttedPoint : MonoBehaviour
     public GameObject scissors;
     public GameObject objectOfLine;
     public GameObject objectOfRedLine;
+    public GameObject ctrl;
     
     private HandTracker _handtracker;
     private LineRenderer lineRenderer;
@@ -21,12 +22,17 @@ public class CuttedPoint : MonoBehaviour
     private hand Hand;
     private float distance;
     private Vector3 closestPoint;
+    private DottedLine dottedData;
+//    private ChangeGame gCtrl;
+
 
     void Start()
     {
         dottedLine = objectOfLine.GetComponent<LineRenderer>();
+        dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
         redLine = objectOfRedLine.GetComponent<LineRenderer>();
+//        gCtrl = ctrl.GetComponent<ChangeGame>();
         
         
 
@@ -35,6 +41,9 @@ public class CuttedPoint : MonoBehaviour
             Hand.isHold += (isGrabbed)=> {
                 if(isGrabbed){
                     DrawPath();
+                    if(isFinish()){
+//                        gCtrl.nextGame();
+                    }
                 }
             };
         }
@@ -85,6 +94,8 @@ public class CuttedPoint : MonoBehaviour
                     lineRenderer.positionCount ++; // 점의 수를 증가시킴
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                     transform.position = destination;
+
+                    
                 }
             }
         }
@@ -124,5 +135,26 @@ public class CuttedPoint : MonoBehaviour
             return B;
         else
             return A + AB * distance;//Closest point vector
+    }
+
+    public bool isFinish()
+    {
+        switch (HandSide.HS)
+        {
+            case whichSide.left:
+                if(dottedData.data.points[dottedData.data.points.Length-1].x <= lineRenderer.GetPosition(lineRenderer.positionCount - 1).x) {
+                    return true;
+                }
+                return false;
+                break;
+            
+            case whichSide.right:
+                if(dottedData.data.points[0].x >= lineRenderer.GetPosition(lineRenderer.positionCount - 1).x) {
+                    return true;
+                }
+                return false;
+                break;
+        }
+        return false;
     }
 }

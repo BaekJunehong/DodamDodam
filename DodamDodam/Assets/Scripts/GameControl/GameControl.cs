@@ -18,43 +18,76 @@ public class ChangeGame : MonoBehaviour
     void Start()
     {
         progress = GameObject.Find("Progress").GetComponent<Progress>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         if(progress.prog >= 100) {
-            order = order + 1;
+            // order = order + 1;
 
-            switch (Mode.M)
-            {
-                case (modeType.play):
-                    if (order >= Scenario.PS.Count) {
+            // switch (Mode.M)
+            // {
+            //     case (modeType.play):
+            //         if (order >= Scenario.PS.Count) {
                 
-                    }
+            //         }
 
-                    else {
-                        SceneData.SC = Scenario.PS[order];
-                        sceneChange?.Invoke();
-                    }
-                    break;
+            //         else {
+            //             SceneData.SC = Scenario.PS[order];
+            //             sceneChange?.Invoke();
+            //         }
+            //         break;
                 
-                case (modeType.test):
+            //     case (modeType.test):
                     
 
-                    if (order >= Scenario.TS.Count) {
-                        Debug.Log("in");
-                        SceneManager.LoadScene("Result");
-                    }
+            //         if (order >= Scenario.TS.Count) {
+            //             SceneManager.LoadScene("Result");
+            //         }
 
-                    else {
-                        Difficulty.DF = Scenario.TS[order].Item1;
-                        SceneData.SC = Scenario.TS[order].Item2;
+            //         else {
+            //             Difficulty.DF = Scenario.TS[order].Item1;
+            //             SceneData.SC = Scenario.TS[order].Item2;
 
-                        sceneChange?.Invoke();
-                    }
-                    break;
-            }
+            //             sceneChange?.Invoke();
+            //         }
+            //         break;
+            // }
+        }
+    }
+
+    void nextGame()
+    {
+        order = order + 1;
+
+        switch (Mode.M)
+        {
+            case (modeType.play):
+                if (order >= Scenario.PS.Count) {
+                
+                }
+
+                else {
+                    SceneData.SC = Scenario.PS[order];
+                    sceneChange?.Invoke();
+                }
+                break;
+                
+            case (modeType.test):
+                if (order >= Scenario.TS.Count) {
+                    SceneManager.LoadScene("Result");
+                }
+
+                else {
+                    Difficulty.DF = Scenario.TS[order].Item1;
+                    SceneData.SC = Scenario.TS[order].Item2;
+
+                    sceneChange?.Invoke();
+                }
+                break;
         }
     }
 }
