@@ -1,14 +1,14 @@
 namespace mode{
-    public enum playMode
+    public enum modeType
     {
         play = 0,
         test = 1
     }
     public class Mode
     {
-        private static playMode mod = playMode.play;
+        private static modeType mod = modeType.play;
 
-        public static playMode M{
+        public static modeType M{
             get => mod;
             set => mod = value;
         }

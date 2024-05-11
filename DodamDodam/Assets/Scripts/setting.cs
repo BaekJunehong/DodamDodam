@@ -4,6 +4,8 @@ using UnityEngine;
 using difficulty;
 using handSide;
 using mode;
+using scenario;
+using sceneData;
 
 public class Setting : MonoBehaviour
 {
@@ -13,14 +15,16 @@ public class Setting : MonoBehaviour
     public GameObject difficultySelect;
     public void onPlayClicked()
     {
-        setMode(mode.playMode.play);
+        setMode(mode.modeType.play);
         modeOff();
         difficultyOn();
     }
 
     public void onTestClicked()
     {
-        setMode(mode.playMode.test);
+        setMode(mode.modeType.test);
+        setDifficulty(Scenario.TS[0].Item1);
+        setLineType(Scenario.TS[0].Item2);
         modeOff();
         handOn();  
     }
@@ -60,7 +64,7 @@ public class Setting : MonoBehaviour
         maskOff();
     }
 
-    public void setMode(mode.playMode m)
+    public void setMode(mode.modeType m)
     {
         Mode.M = m;
     }
@@ -73,6 +77,11 @@ public class Setting : MonoBehaviour
     public void setHand(handSide.whichSide hand)
     {
         HandSide.HS = hand;
+    }
+
+    public void setLineType(sceneData.sceneType line)
+    {
+        SceneData.SC = line;
     }
 
     public void maskOn()
