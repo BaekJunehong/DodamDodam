@@ -24,28 +24,23 @@ public class ChangeGame : MonoBehaviour
     void Update()
     {
         if(progress.prog >= 100) {
+            order = order + 1;
+
             switch (Mode.M)
             {
                 case (modeType.play):
-                    switch (SceneData.SC)
-                    {
-                        case sceneType.straight:
-                            SceneData.SC = sceneType.curve;
-                            sceneChange?.Invoke();
-                            break;
+                    if (order >= Scenario.PS.Count) {
+                
+                    }
 
-                        case sceneType.curve:
-                            SceneData.SC = sceneType.zigzag;
-                            sceneChange?.Invoke();
-                            break;
-
-                        case sceneType.zigzag:
-                            break;              
+                    else {
+                        SceneData.SC = Scenario.PS[order];
+                        sceneChange?.Invoke();
                     }
                     break;
                 
                 case (modeType.test):
-                    order = order + 1;
+                    
 
                     if (order >= Scenario.TS.Count) {
                         Debug.Log("in");
