@@ -4,6 +4,7 @@ using HandUtils;
 using difficulty;
 using handSide;
 using sceneData;
+using gameCtrl;
 
 public class CuttedPoint : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CuttedPoint : MonoBehaviour
     private Vector3 closestPoint;
     private RectTransform paperRT;
     private DottedLine dottedData;
-//    private ChangeGame gCtrl;
+    private ChangeGame gCtrl;
 
 
     void Start()
@@ -34,7 +35,7 @@ public class CuttedPoint : MonoBehaviour
         dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
         redLine = objectOfRedLine.GetComponent<LineRenderer>();
-//        gCtrl = ctrl.GetComponent<ChangeGame>();
+        gCtrl = ctrl.GetComponent<ChangeGame>();
         
         
 
@@ -44,7 +45,7 @@ public class CuttedPoint : MonoBehaviour
                 if(isGrabbed){
                     DrawPath();
                     if(isFinish()){
-//                        gCtrl.nextGame();
+                        gCtrl.nextGame();
                     }
                 }
             };
@@ -148,14 +149,12 @@ public class CuttedPoint : MonoBehaviour
                     return true;
                 }
                 return false;
-                break;
             
             case whichSide.right:
                 if(dottedData.data.points[0].x >= lineRenderer.GetPosition(lineRenderer.positionCount - 1).x) {
                     return true;
                 }
                 return false;
-                break;
         }
         return false;
     }

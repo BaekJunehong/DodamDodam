@@ -59,7 +59,7 @@ public class ChangeGame : MonoBehaviour
         }
     }
 
-    void nextGame()
+    public void nextGame()
     {
         order = order + 1;
 

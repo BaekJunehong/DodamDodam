@@ -34,7 +34,6 @@ public abstract class Dotted : MonoBehaviour
     public void DrawDottedLine(){
         data.currentScene = SceneData.SC;
         data.difficulty = Difficulty.DF;
-        Vector3[] points = null;
         switch(data.currentScene){
             
             case sceneType.straight :
@@ -76,10 +75,10 @@ public abstract class Dotted : MonoBehaviour
         {
             case whichSide.left:
                 return data.points[data.points.Length-1];
-                break;
+
             case whichSide.right:
                 return data.points[0];
-                break;
+
         }
         return new Vector3(0,0,0);
     }
