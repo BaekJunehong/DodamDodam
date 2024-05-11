@@ -2444,6 +2444,7 @@ MonoBehaviour:
   scissors: {fileID: 903902187}
   objectOfLine: {fileID: 1673786194}
   objectOfRedLine: {fileID: 1366959261}
+  ctrl: {fileID: 276472561}
 --- !u!212 &1349250608
 SpriteRenderer:
   m_ObjectHideFlags: 0
