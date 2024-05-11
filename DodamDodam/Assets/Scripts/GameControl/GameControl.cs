@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using sceneData;
 using mode;
 using scenario;
@@ -45,6 +46,10 @@ public class ChangeGame : MonoBehaviour
                 
                 case (modeType.test):
                     order = order + 1;
+
+                    if (order >= Scenario.TS.Count) {
+                        SceneManager.LoadScene("Result");
+                    }
 
                     Difficulty.DF = Scenario.TS[order].Item1;
                     SceneData.SC = Scenario.TS[order].Item2;
