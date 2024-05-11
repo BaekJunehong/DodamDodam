@@ -6,7 +6,12 @@ namespace scenario
 {
     public class Scenario
     {
-        private static List<(difficultyLevel diff, sceneType sc)>PlayScenario;
+        private static List<sceneType>PlayScenario = new List<sceneType>
+        {
+            sceneType.straight,
+            sceneType.curve,
+            sceneType.zigzag
+        };
 
         private static List<(difficultyLevel, sceneType)>TestScenario = new List<(difficultyLevel, sceneType)>
         {
@@ -17,6 +22,10 @@ namespace scenario
             (difficultyLevel.hard, sceneType.straight)
         };
 
+        public static List<sceneType> PS
+        {
+            get { return PlayScenario; }
+        }
         public static List<(difficultyLevel, sceneType)> TS
         {
             get { return TestScenario; }

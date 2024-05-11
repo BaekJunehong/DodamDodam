@@ -7,8 +7,7 @@ public class HandTracker : MonoBehaviour
 {
     private hand Hand;
     private HandAnimator HA;
-    // private int CenterIndex = 14;
-    private int CenterIndex = 5;
+    private int CenterIndex = 14;
     private int flag = 0;
     private bool cancut = false;
     private float timer = 0f;
@@ -100,11 +99,10 @@ public class HandTracker : MonoBehaviour
     }
 
 
-    public int Cutting()            // t/f 버전
+    public int Cutting()
     {
-        float a = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(8));
-        float b = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(12));
-        // float dist = a + b; // a와 b의 합산으로 dist 계산
+        float a = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(12));
+        float b = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(8));
         float dist = a > b ? a : b;
 
         if (timer >= inputDelay)
@@ -117,22 +115,22 @@ public class HandTracker : MonoBehaviour
         }
         else if (flag > 0)
         {
-            if (b < 0.07f) flag = 2;
+            if (b < 0.05f) flag = 2;
             timer += Time.deltaTime;
             return 0;
         }
-        else if (a < 0.08f)     // 0.1 -> 0.08
+        else if (a < 0.06f)
         {
             if (cancut)
             {
-                flag =  b < 0.07f ? 2 : 1;
+                flag =  b < 0.05f ? 2 : 1;
                 timer += Time.deltaTime;
             }
             return 0;
         }
         else
         {
-            if (dist > 0.11f) cancut = true;     // 옆면 0.1 -> 0.11
+            if (dist > 0.08f) cancut = true;
             return 0;
         }
     }
@@ -141,10 +139,9 @@ public class HandTracker : MonoBehaviour
     {
         if (!isHandexist()) return CurrentDirection;
 
-        Vector3 A = HA.GetPoint(5);      // 5
-        Vector3 B = HA.GetPoint(17);     // 17
-        // Vector3 A = HA.GetPoint(14);      // 5
-        // Vector3 B = HA.GetPoint(17);     // 17
+
+        Vector3 A = HA.GetPoint(14);
+        Vector3 B = HA.GetPoint(17);
         Vector3 AB = A - B;
         Vector3 dir = new Vector3(-AB.x, AB.y, 0);
         CurrentDirection = dir.normalized;
