@@ -48,13 +48,16 @@ public class ChangeGame : MonoBehaviour
                     order = order + 1;
 
                     if (order >= Scenario.TS.Count) {
+                        Debug.Log("in");
                         SceneManager.LoadScene("Result");
                     }
 
-                    Difficulty.DF = Scenario.TS[order].Item1;
-                    SceneData.SC = Scenario.TS[order].Item2;
+                    else {
+                        Difficulty.DF = Scenario.TS[order].Item1;
+                        SceneData.SC = Scenario.TS[order].Item2;
 
-                    sceneChange?.Invoke();
+                        sceneChange?.Invoke();
+                    }
                     break;
             }
         }
