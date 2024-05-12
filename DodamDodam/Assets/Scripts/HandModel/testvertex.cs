@@ -15,12 +15,12 @@ public class testvertex : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //_handtracker.DrawHand();
-        // Vector3 test_data = _handtracker.GetCenter();
+        _handtracker.DrawHand();
+        Vector3 test_data = _handtracker.GetCenter();
         // Debug.Log(test_data);
         // Debug.Log(_handtracker.GetValidHand);
         // Vector3 test_data = _handtracker.GetVertex(12);
-        //Debug.Log(test_data);
+        Debug.Log(test_data);
         // bool test_hold = _handtracker.IsHold();
         // Debug.Log(test_hold);
         // int test_angle = _handtracker.Cutting();
