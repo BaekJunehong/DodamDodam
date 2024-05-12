@@ -70,7 +70,7 @@ public class CuttedPoint : MonoBehaviour
             
                 int pointsCount = dottedLine.positionCount;
                 Vector3[] points = new Vector3[pointsCount];
-                dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
+                dottedLine.GetPositions(dottedData.data.points);//현재 위치한 씬의 점선 불러오기
                 //경계를 벗어났을 때에 대한 예외 처리
                 bool flag = true;
                 bool excapebit = false;
