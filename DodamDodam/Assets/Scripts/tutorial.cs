@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HandUtils;
 using handSide;
+using TMPro;
 
 public class tutorial : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class tutorial : MonoBehaviour
     public GameObject cuttedPointObject;
     public GameObject guideLineObjcet;
     public GameObject destinationObject;
+    public TextMeshProUGUI instructionText;
 
     [Header("Variable Property")]
     public float scanningDistance = 0.7f;
@@ -53,7 +55,7 @@ public class tutorial : MonoBehaviour
         cuttedPointObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(7, 0, 0) : new Vector3(-7, 0, 0);
         destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
 
-        print("손으로 가위를 잡으세요!");
+        instructionText.text = "1. 손으로 가위를 잡으세요.";
     }
 
     
