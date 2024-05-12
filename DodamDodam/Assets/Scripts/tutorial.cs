@@ -113,7 +113,7 @@ public class tutorial : MonoBehaviour
             if(power >= 1 && isGrabbedScissors){
                 cuttedLineRenderer.positionCount = 2;
                 cuttedLineRenderer.SetPosition(0, cuttedPointObject.transform.position);
-                cuttedPointObject.transform.position = cuttedPointObject.transform.position + Vector3.left * 3;
+                cuttedPointObject.transform.position = HandSide.HS == whichSide.right ? cuttedPointObject.transform.position + Vector3.left * 3 : cuttedPointObject.transform.position + Vector3.right * 3;
                 cuttedLineRenderer.SetPosition(1, cuttedPointObject.transform.position);
                 //성공을 출력
                 step = 3;
