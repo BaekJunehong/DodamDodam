@@ -13,7 +13,6 @@ public struct DottedData{
     public int numPoint;
     public sceneType currentScene;
     public difficultyLevel difficulty;
-    public Vector3[] points;
 }
 
 public abstract class Dotted : MonoBehaviour
@@ -22,13 +21,14 @@ public abstract class Dotted : MonoBehaviour
     public DottedData data;
     protected LineRenderer lineRenderer;
     private ChangeGame eventHandler;
+    public Vector3[] points;
 
     public virtual void InitSetting(){
         lineRenderer = GetComponent<LineRenderer>();
         pointsArray = new PointsData();
         data.width = 0.1f;
         data.textureScale = 0.5f;
-        data.points = null;
+        points = null;
     }
 
     public void DrawDottedLine(){
@@ -38,18 +38,18 @@ public abstract class Dotted : MonoBehaviour
             
             case sceneType.straight :
             data.numPoint = pointsArray.straightNum;
-            data.points = data.difficulty == difficultyLevel.hard ? pointsArray.points_straight_hard : pointsArray.points_straight;
+            points = data.difficulty == difficultyLevel.hard ? pointsArray.points_straight_hard : pointsArray.points_straight;
             break;
             case sceneType.curve :
             data.numPoint = pointsArray.curveNum;
-            data.points = data.difficulty == difficultyLevel.easy ? pointsArray.points_curve_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_curve_normal : pointsArray.points_curve_hard;
+            points = data.difficulty == difficultyLevel.easy ? pointsArray.points_curve_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_curve_normal : pointsArray.points_curve_hard;
             break;
             case sceneType.zigzag :
             data.numPoint = data.difficulty == difficultyLevel.easy? pointsArray.zigzagNum_easy : data.difficulty == difficultyLevel.normal? pointsArray.zigzagNum_normal : pointsArray.zigzagNum_hard;
-            data.points = data.difficulty == difficultyLevel.easy? pointsArray.points_zigzag_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_zigzag_normal : pointsArray.points_zigzag_hard;
+            points = data.difficulty == difficultyLevel.easy? pointsArray.points_zigzag_easy : data.difficulty == difficultyLevel.normal? pointsArray.points_zigzag_normal : pointsArray.points_zigzag_hard;
             break;
         }
-        DrawLine(data.points);
+        DrawLine(points);
     }
 
     public virtual void DrawLine(Vector3[] array){
@@ -68,18 +68,5 @@ public abstract class Dotted : MonoBehaviour
         }
         InitSetting();
         DrawDottedLine();
-    }
-
-    public Vector3 getLastPoint() {
-        switch(HandSide.HS)
-        {
-            case whichSide.left:
-                return data.points[data.points.Length-1];
-
-            case whichSide.right:
-                return data.points[0];
-
-        }
-        return new Vector3(0,0,0);
     }
 }

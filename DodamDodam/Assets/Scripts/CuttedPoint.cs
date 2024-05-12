@@ -25,7 +25,9 @@ public class CuttedPoint : MonoBehaviour
     private Vector3 closestPoint;
     private RectTransform paperRT;
     private DottedLine dottedData;
-    private ChangeGame gCtrl;
+    private ChangeGame CtrlG;
+    bool excapebit = false;
+    Vector3[] points;
 
 
     void Start()
@@ -35,26 +37,22 @@ public class CuttedPoint : MonoBehaviour
         dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
         redLine = objectOfRedLine.GetComponent<LineRenderer>();
-        gCtrl = ctrl.GetComponent<ChangeGame>();
+        CtrlG = gameObject.AddComponent<ChangeGame>();
         
-        
-
-        Hand = FindObjectOfType<hand>();
-        if(Hand != null){
-            Hand.isHold += (isGrabbed)=> {
-                if(isGrabbed){
-                    DrawPath();
-                    if(isFinish()){
-                        gCtrl.nextGame();
-                    }
-                }
-            };
-        }
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1; // 시작 위치를 라인에 추가
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.startWidth = Width;
         lineRenderer.endWidth = Width;
+
+        Hand = FindAnyObjectByType<hand>();
+        if(Hand != null){
+            Hand.isHold += (isGrabbed) => {
+                if(isGrabbed){
+                    DrawPath();
+                }
+            };
+        }
 
         redLine.startWidth = Width;
         redLine.endWidth = Width;
@@ -69,11 +67,10 @@ public class CuttedPoint : MonoBehaviour
                 Vector3 destination = power >= 1 ? transform.position + direction * power : Vector3.zero;//목표점 계산
             
                 int pointsCount = dottedLine.positionCount;
-                Vector3[] points = new Vector3[pointsCount];
-                dottedLine.GetPositions(dottedData.data.points);//현재 위치한 씬의 점선 불러오기
+                points = new Vector3[pointsCount];
+                dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
                 //경계를 벗어났을 때에 대한 예외 처리
                 bool flag = true;
-                bool excapebit = false;
                 for(int i=1; i<=5; i++){
                     float ratio = (float)i / 5;
                     Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
@@ -82,7 +79,7 @@ public class CuttedPoint : MonoBehaviour
                     if(distance >= difficulty){
                         flag = false;
                     }
-                    if ((HandSide.HS == whichSide.right && divisionPoint.x <= -(paperRT.rect.width / 2f)*0.9f) || (HandSide.HS == whichSide.left && divisionPoint.x >= (paperRT.rect.width / 2f)*0.9f)) {excapebit = true;}
+                    if ((HandSide.HS == whichSide.right && divisionPoint.x <= points[0].x || (HandSide.HS == whichSide.left && divisionPoint.x >= points[points.Length -1].x))) {excapebit = true;}
                 }
                 if(!flag && !excapebit){
                     redLine.positionCount = 2;
@@ -97,8 +94,9 @@ public class CuttedPoint : MonoBehaviour
                     lineRenderer.positionCount ++; // 점의 수를 증가시킴
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                     transform.position = destination;
-
-                    
+                    if(excapebit == true){
+                        CtrlG.nextGame();
+                    }
                 }
             }
         }
@@ -140,22 +138,4 @@ public class CuttedPoint : MonoBehaviour
             return A + AB * distance;//Closest point vector
     }
 
-    public bool isFinish()
-    {
-        switch (HandSide.HS)
-        {
-            case whichSide.left:
-                if(dottedData.data.points[dottedData.data.points.Length-1].x <= lineRenderer.GetPosition(lineRenderer.positionCount - 1).x) {
-                    return true;
-                }
-                return false;
-            
-            case whichSide.right:
-                if(dottedData.data.points[0].x >= lineRenderer.GetPosition(lineRenderer.positionCount - 1).x) {
-                    return true;
-                }
-                return false;
-        }
-        return false;
-    }
 }

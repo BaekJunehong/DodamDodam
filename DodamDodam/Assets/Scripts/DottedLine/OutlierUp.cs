@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using difficulty;
-using pointsData;
 using sceneData;
 
 public class OutlierUp : Dotted

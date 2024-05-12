@@ -2660,6 +2660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8799fbd9fab43ec4e94b3906b59b8e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
 --- !u!120 &1122927533
 LineRenderer:
   serializedVersion: 2
@@ -4329,6 +4330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f08bab044c87d94cb8c3bc1f3f89538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
 --- !u!1 &1732662224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4631,6 +4633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa810bf93fcceb42bd7ddf5fb6625e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
 --- !u!1 &2004414722
 GameObject:
   m_ObjectHideFlags: 0
