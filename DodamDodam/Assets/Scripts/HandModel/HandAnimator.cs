@@ -9,15 +9,14 @@ public sealed class HandAnimator : MonoBehaviour
 {
     #region Public method
 
+    public static HandAnimator instance;
+
     public Vector3 GetPoint(int index)
-      // => transform.TransformPoint(_pipeline.GetKeyPoint(index));
-      // => Camera.main.WorldToScreenPoint(_pipeline.GetKeyPoint(index));
       => _pipeline.GetKeyPoint(index);
 
     public void OnRenderHand()
     {
       var layer = gameObject.layer;
-      // MeshRenderer meshRenderer = GetComponenet<meshRenderer>();
 
       // Joint balls
       for (var i = 0; i < HandPipeline.KeyPointCount; i++)
@@ -35,7 +34,6 @@ public sealed class HandAnimator : MonoBehaviour
           Graphics.DrawMesh(_boneMesh, xform, _boneMaterial, layer);
       }
 
-      // return meshRenderer;
     }
 
     public float GetScore
@@ -77,11 +75,16 @@ public sealed class HandAnimator : MonoBehaviour
         (0, 17), (2, 5), (5, 9), (9, 13), (13, 17)  // Palm
     };
 
-    Matrix4x4 CalculateJointXform(Vector3 pos)
-      => Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.04f);
-
-    Matrix4x4 CalculateBoneXform(Vector3 p1, Vector3 p2)
+    Matrix4x4 CalculateJointXform(Vector3 bpos)
     {
+      Vector3 pos = bpos + new Vector3 (12, 0, 0);
+      return Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one * 0.04f);
+    }
+
+    Matrix4x4 CalculateBoneXform(Vector3 bp1, Vector3 bp2)
+    {
+        Vector3 p1 = bp1 + new Vector3 (12, 0, 0);
+        Vector3 p2 = bp2 + new Vector3 (12, 0, 0);
         var length = Vector3.Distance(p1, p2) / 2;
         var radius = 0.015f;
 
@@ -95,6 +98,14 @@ public sealed class HandAnimator : MonoBehaviour
     #endregion
 
     #region MonoBehaviour implementation
+
+    private void Awake()
+    {
+        if(HandAnimator.instance == null)
+        {
+          HandAnimator.instance = this;
+        }
+    }
 
     void Start()
       => _pipeline = new HandPipeline(_resources);

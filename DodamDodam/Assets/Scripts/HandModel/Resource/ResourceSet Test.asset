@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdfb6c79c682ce4c98761c3284eec87, type: 3}
+  m_Name: ResourceSet Test
+  m_EditorClassIdentifier: 
+  blazePalm: {fileID: 11400000, guid: 4fb839cbed0f44aa1bf81cb6aff8a91f, type: 2}
+  handLandmark: {fileID: 11400000, guid: 0942180be506ebd449ab62d0ee656507, type: 2}
+  compute: {fileID: 7200000, guid: 87f7d256e75b8304aaaf51b85fdcccbf, type: 3}

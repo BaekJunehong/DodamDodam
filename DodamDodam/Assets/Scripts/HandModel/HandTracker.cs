@@ -6,7 +6,6 @@ namespace HandUtils {
 public class HandTracker : MonoBehaviour
 {
     private hand Hand;
-    private HandAnimator HA;
     private int CenterIndex = 14;
     private int flag = 0;
     private bool cancut = false;
@@ -20,16 +19,15 @@ public class HandTracker : MonoBehaviour
 
     void Awake(){
         Hand = FindObjectOfType<hand>();
-        HA = GameObject.Find("WebSource").GetComponent<HandAnimator>();
     }
     public float GetValid
-        => HA.GetScore;
+        => HandAnimator.instance.GetScore;
 
     public float GetValidHand
-        => HA.GetHandedness;
+        => HandAnimator.instance.GetHandedness;
 
     public void DrawHand()
-        => HA.OnRenderHand();
+        => HandAnimator.instance.OnRenderHand();
 
     public Vector3 MappingVertex(Vector3 refVec)
     {
@@ -56,14 +54,14 @@ public class HandTracker : MonoBehaviour
     public Vector3 GetVertex(int index)
     {
         if (!isHandexist()) return CurrentVector;
-        CurrentVector = MappingVertex(HA.GetPoint(index));
+        CurrentVector = MappingVertex(HandAnimator.instance.GetPoint(index));
         return CurrentVector;
     }
 
     public Vector3 GetCenter()
     {
         if (!isHandexist()) return CurrentVector;
-        CurrentVector = MappingVertex(HA.GetPoint(CenterIndex));
+        CurrentVector = MappingVertex(HandAnimator.instance.GetPoint(CenterIndex));
         return CurrentVector;
     }
 
@@ -79,8 +77,8 @@ public class HandTracker : MonoBehaviour
     }
     public int anglecalc(int n)
     {
-        Vector3 refVector = HA.GetPoint(n) - HA.GetPoint(0);
-        Vector3 coVector = HA.GetPoint(n+3) - HA.GetPoint(n);
+        Vector3 refVector = HandAnimator.instance.GetPoint(n) - HandAnimator.instance.GetPoint(0);
+        Vector3 coVector = HandAnimator.instance.GetPoint(n+3) - HandAnimator.instance.GetPoint(n);
         float dotProduct = Vector3.Dot(refVector.normalized, coVector.normalized);
         float angle = Mathf.Acos(dotProduct);
         int angleInDegrees = Mathf.Abs(angle * Mathf.Rad2Deg - 90) < threshold ? 0 : (int)(angle * Mathf.Rad2Deg);
@@ -101,8 +99,8 @@ public class HandTracker : MonoBehaviour
 
     public int Cutting()
     {
-        float a = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(12));
-        float b = Vector3.Distance(HA.GetPoint(4), HA.GetPoint(8));
+        float a = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(12));
+        float b = Vector3.Distance(HandAnimator.instance.GetPoint(4), HandAnimator.instance.GetPoint(8));
         float dist = a > b ? a : b;
 
         if (timer >= inputDelay)
@@ -140,8 +138,8 @@ public class HandTracker : MonoBehaviour
         if (!isHandexist()) return CurrentDirection;
 
 
-        Vector3 A = HA.GetPoint(14);
-        Vector3 B = HA.GetPoint(17);
+        Vector3 A = HandAnimator.instance.GetPoint(14);
+        Vector3 B = HandAnimator.instance.GetPoint(17);
         Vector3 AB = A - B;
         Vector3 dir = new Vector3(-AB.x, AB.y, 0);
         CurrentDirection = dir.normalized;
@@ -149,6 +147,6 @@ public class HandTracker : MonoBehaviour
     }
 
     void OnDestroy()
-      => Destroy(HA);
+      => Destroy(HandAnimator.instance);
 }
 }
