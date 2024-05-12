@@ -84,7 +84,8 @@ public class ChangeGame : MonoBehaviour
                 
             case (modeType.test):
                 if (order >= Scenario.TS.Count) {
-                    SceneManager.LoadScene("Result");
+        //            SceneManager.LoadScene("Result");
+                    SceneManager.LoadScene("Loading");
                 }
 
                 else {
