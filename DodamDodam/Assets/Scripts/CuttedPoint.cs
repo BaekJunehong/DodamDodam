@@ -37,7 +37,7 @@ public class CuttedPoint : MonoBehaviour
         dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
         redLine = objectOfRedLine.GetComponent<LineRenderer>();
-        CtrlG = gameObject.AddComponent<ChangeGame>();
+        CtrlG = ctrl.GetComponent<ChangeGame>();
         
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1; // 시작 위치를 라인에 추가

@@ -65,7 +65,6 @@ public class ChangeGame : MonoBehaviour
     public void nextGame()
     {
         order = order + 1;
-
         switch (Mode.M)
         {
             case (modeType.play):

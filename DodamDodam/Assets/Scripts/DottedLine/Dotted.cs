@@ -35,7 +35,6 @@ public abstract class Dotted : MonoBehaviour
         data.currentScene = SceneData.SC;
         data.difficulty = Difficulty.DF;
         switch(data.currentScene){
-            
             case sceneType.straight :
             data.numPoint = pointsArray.straightNum;
             points = data.difficulty == difficultyLevel.hard ? pointsArray.points_straight_hard : pointsArray.points_straight;
