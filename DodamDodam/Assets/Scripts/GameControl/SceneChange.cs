@@ -22,7 +22,7 @@ public class SceneChange : MonoBehaviour
                 break;
 
             case "retry_button":
-                SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("Camera");
                 break;
 
             default:

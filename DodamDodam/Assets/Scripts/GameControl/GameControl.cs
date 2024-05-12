@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 using sceneData;
 using mode;
 using scenario;
@@ -12,14 +13,16 @@ public class ChangeGame : MonoBehaviour
 {
     public event Action sceneChange;
     public int order = 0;
+    public GameObject result_canvas;
+    public TextMeshProUGUI score;
+    public TextMeshProUGUI error;
     Progress progress;
-
+    public GameObject timer;
+    
     // Start is called before the first frame update
     void Start()
     {
         progress = GameObject.Find("Progress").GetComponent<Progress>();
-
-
     }
 
     // Update is called once per frame
@@ -67,7 +70,10 @@ public class ChangeGame : MonoBehaviour
         {
             case (modeType.play):
                 if (order >= Scenario.PS.Count) {
-                
+                    result_canvas.SetActive(true);
+
+                    score.text = timer.GetComponent<Timer>().T.ToString("N2");
+                    error.text = ErrorCount.errorCount.ToString();
                 }
 
                 else {

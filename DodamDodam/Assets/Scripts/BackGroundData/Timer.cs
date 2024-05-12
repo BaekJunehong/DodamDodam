@@ -19,4 +19,8 @@ public class Timer : MonoBehaviour
         time += Time.deltaTime;
         timeText.text = string.Format("{0:N2}", time);
     }
+
+    public float T{
+        get => time;
+    }
 }
