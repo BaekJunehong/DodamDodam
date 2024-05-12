@@ -286,16 +286,15 @@
       "url": "https://registry.npmjs.com"
     },
     "jp.keijiro.klak.testtools": {
-      "version": "1.0.4",
+      "version": "file:jp.keijiro.klak.testtools@1.0.4",
       "depth": 0,
-      "source": "registry",
+      "source": "embedded",
       "dependencies": {
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
         "com.unity.modules.unitywebrequesttexture": "1.0.0",
         "com.unity.modules.video": "1.0.0"
-      },
-      "url": "https://registry.npmjs.com"
+      }
     },
     "jp.keijiro.mediapipe.blazepalm": {
       "version": "2.1.1",
