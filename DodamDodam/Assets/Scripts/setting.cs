@@ -6,6 +6,7 @@ using handSide;
 using mode;
 using scenario;
 using sceneData;
+using UnityEngine.SceneManagement;
 
 public class Setting : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class Setting : MonoBehaviour
         setLineType(Scenario.TS[0].Item2);
         modeOff();
         handOn();  
+    }
+
+    public void onTutoClicked()
+    {
+        setMode(mode.modeType.tutorial);
+        difficultyOff();
+        handOn(); 
+        
     }
 
     public void onEasyClicked()
@@ -53,15 +62,27 @@ public class Setting : MonoBehaviour
     public void onLeftClicked()
     {
         setHand(handSide.whichSide.left);
-        handOff();
-        maskOff();
+
+        if(Mode.M == modeType.tutorial) {
+            SceneManager.LoadScene("Tutorial");
+        }
+        else {
+            handOff();
+            maskOff();
+        }
     }
 
     public void onRightClicked()
     {
         setHand(handSide.whichSide.right);
-        handOff();
-        maskOff();
+
+        if(Mode.M == modeType.tutorial) {
+            SceneManager.LoadScene("Tutorial");
+        }
+        else {
+            handOff();
+            maskOff();
+        }
     }
 
     public void setMode(mode.modeType m)

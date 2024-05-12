@@ -4,6 +4,7 @@ using UnityEngine;
 using HandUtils;
 using handSide;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class tutorial : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class tutorial : MonoBehaviour
     public GameObject cuttedPointObject;
     public GameObject guideLineObjcet;
     public GameObject destinationObject;
+    public GameObject websource;
     public TextMeshProUGUI instructionText;
 
     [Header("Variable Property")]
@@ -87,7 +89,15 @@ public class tutorial : MonoBehaviour
         int power = _handtracker.Cutting();
         switch(step){
             case -1:
-            //씬 넘기기
+                instructionText.text = "성공!";
+                Destroy(handObject);
+                Destroy(scissorsObject);
+                Destroy(cuttedPointObject);
+                Destroy(guideLineObjcet);
+                Destroy(destinationObject);
+                Destroy(websource);
+
+                SceneManager.LoadScene("Camera");
             break;
             case 0:
             //손으로 가위를 잡아야 하는 단계
@@ -105,6 +115,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.3f){
                 //성공을 출력
                 step = 2;
+                instructionText.text = "3. 가위질을 해보세요.";
                 print("가위질을 해보세요");
             }
             break;
@@ -117,7 +128,7 @@ public class tutorial : MonoBehaviour
                 cuttedLineRenderer.SetPosition(1, cuttedPointObject.transform.position);
                 //성공을 출력
                 step = 3;
-                instructionText.text = "3. 가위를 분홍색 점에 가져가보세요.";
+                instructionText.text = "4. 가위를 분홍색 점에 가져가보세요.";
                 print("가위를 분홍색 점에 가져가보세요!");
             }
             break;
@@ -127,7 +138,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.3f){
                 //성공을 출력
                 step = 4;
-                instructionText.text = "4. 손을 움직여 방향을 조절해보세요.";
+                instructionText.text = "5. 손을 움직여 방향을 조절해보세요.";
                 print("손을 움직여 방향을 조절해보세요!");
             }
             break;
@@ -136,7 +147,7 @@ public class tutorial : MonoBehaviour
             guideLineObjcet.SetActive(true);
             if(timeSleep(1)){
                 step = 5;
-                instructionText.text = "5. 분홍색 점을 향해 가위질을 해보세요.";
+                instructionText.text = "6. 분홍색 점을 향해 가위질을 해보세요.";
                 print("분홍색 점을 향해 가위질을 해보세요");
                 destinationObject.SetActive(true);
             }
@@ -149,7 +160,7 @@ public class tutorial : MonoBehaviour
                 cuttedLineRenderer.SetPosition(cuttedLineRenderer.positionCount - 1, cuttedPointObject.transform.position);
                 //성공을 출력
                 step = 6;
-                instructionText.text = "6. 가위를 분홍색 점에 가져가보세요.";
+                instructionText.text = "7. 가위를 분홍색 점에 가져가보세요.";
                 print("가위를 분홍색 점에 가져가보세요!");
                 destinationObject.SetActive(false);
             }
@@ -160,7 +171,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.7f && isGrabbedScissors){
                 //성공을 출력
                 step = 7;
-                instructionText.text = "7. 강하게 가위질해보세요.";
+                instructionText.text = "8. 강하게 가위질해보세요.";
                 print("강하게 가위질해보세요!");
             }
             break;

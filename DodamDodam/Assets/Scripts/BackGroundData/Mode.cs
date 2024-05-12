@@ -1,8 +1,9 @@
 namespace mode{
     public enum modeType
     {
-        play = 0,
-        test = 1
+        tutorial = 0,
+        play = 1,
+        test = 2
     }
     public class Mode
     {
