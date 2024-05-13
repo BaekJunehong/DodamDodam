@@ -95,6 +95,7 @@ public class CuttedPoint : MonoBehaviour
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                     transform.position = destination;
                     if(excapebit == true){
+                        excapebit = false;
                         CtrlG.nextGame();
                     }
                 }
