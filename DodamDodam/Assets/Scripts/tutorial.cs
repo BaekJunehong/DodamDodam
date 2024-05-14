@@ -25,6 +25,7 @@ public class tutorial : MonoBehaviour
     public GameObject guideLineObjcet;
     public GameObject destinationObject;
     public GameObject websource;
+    public GameObject audioManager;
     public TextMeshProUGUI instructionText;
 
     [Header("Variable Property")]
@@ -37,6 +38,7 @@ public class tutorial : MonoBehaviour
     private HandTracker _handtracker;
     private LineRenderer cuttedLineRenderer;
     private float time = 0;
+    private audioManager audioScript;
 
     void Start()
     {
@@ -57,6 +59,9 @@ public class tutorial : MonoBehaviour
         cuttedPointObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(7, 0, 0) : new Vector3(-7, 0, 0);
         destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
 
+        audioScript = audioManager.GetComponent<audioManager>();
+
+        audioScript.playAudio(0);
         instructionText.text = "1. 손으로 가위를 잡으세요.";
     }
 
@@ -89,6 +94,7 @@ public class tutorial : MonoBehaviour
         int power = _handtracker.Cutting();
         switch(step){
             case -1:
+                audioScript.changeAudio(8);
                 instructionText.text = "성공!";
                 Destroy(handObject);
                 Destroy(scissorsObject);
@@ -104,6 +110,7 @@ public class tutorial : MonoBehaviour
             if(isGrabbedScissors){
                 //성공을 출력
                 step = 1;
+                audioScript.changeAudio(1);
                 instructionText.text = "2. 가위를 분홍색 점에 가져가보세요.";
                 print("2. 가위를 분홍색 점에 가져가보세요.");
                 cuttedPointObject.SetActive(true);
@@ -115,6 +122,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.3f){
                 //성공을 출력
                 step = 2;
+                audioScript.changeAudio(2);
                 instructionText.text = "3. 가위질을 해보세요.";
                 print("가위질을 해보세요");
             }
@@ -128,6 +136,7 @@ public class tutorial : MonoBehaviour
                 cuttedLineRenderer.SetPosition(1, cuttedPointObject.transform.position);
                 //성공을 출력
                 step = 3;
+                audioScript.changeAudio(3);
                 instructionText.text = "4. 가위를 분홍색 점에 가져가보세요.";
                 print("가위를 분홍색 점에 가져가보세요!");
             }
@@ -138,6 +147,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.3f){
                 //성공을 출력
                 step = 4;
+                audioScript.changeAudio(4);
                 instructionText.text = "5. 손을 움직여 방향을 조절해보세요.";
                 print("손을 움직여 방향을 조절해보세요!");
             }
@@ -147,6 +157,7 @@ public class tutorial : MonoBehaviour
             guideLineObjcet.SetActive(true);
             if(timeSleep(1)){
                 step = 5;
+                audioScript.changeAudio(5);
                 instructionText.text = "6. 분홍색 점을 향해 가위질을 해보세요.";
                 print("분홍색 점을 향해 가위질을 해보세요");
                 destinationObject.SetActive(true);
@@ -160,6 +171,7 @@ public class tutorial : MonoBehaviour
                 cuttedLineRenderer.SetPosition(cuttedLineRenderer.positionCount - 1, cuttedPointObject.transform.position);
                 //성공을 출력
                 step = 6;
+                audioScript.changeAudio(6);
                 instructionText.text = "7. 가위를 분홍색 점에 가져가보세요.";
                 print("가위를 분홍색 점에 가져가보세요!");
                 destinationObject.SetActive(false);
@@ -171,6 +183,7 @@ public class tutorial : MonoBehaviour
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.7f && isGrabbedScissors){
                 //성공을 출력
                 step = 7;
+                audioScript.changeAudio(7);
                 instructionText.text = "8. 강하게 가위질해보세요.";
                 print("강하게 가위질해보세요!");
             }

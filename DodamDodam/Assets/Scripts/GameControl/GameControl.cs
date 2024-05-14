@@ -69,6 +69,13 @@ public class ChangeGame : MonoBehaviour
         {
             case (modeType.play):
                 if (order >= Scenario.PS.Count) {
+                    GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("GameComponent");
+
+                    foreach (GameObject obj in objectsWithTag)
+                    {
+                        Destroy(obj);
+                    }
+
                     result_canvas.SetActive(true);
                     print("끝");
 

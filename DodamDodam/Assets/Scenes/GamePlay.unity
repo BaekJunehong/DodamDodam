@@ -2451,7 +2451,7 @@ GameObject:
   - component: {fileID: 1027447319}
   m_Layer: 0
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: GameComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3236,7 +3236,7 @@ GameObject:
   - component: {fileID: 1349250606}
   m_Layer: 0
   m_Name: CuttedPoint
-  m_TagString: Untagged
+  m_TagString: GameComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4163,7 +4163,7 @@ GameObject:
   - component: {fileID: 1673786200}
   m_Layer: 3
   m_Name: DottedLine
-  m_TagString: Untagged
+  m_TagString: GameComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
