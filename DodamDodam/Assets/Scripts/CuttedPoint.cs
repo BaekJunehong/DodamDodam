@@ -75,7 +75,7 @@ public class CuttedPoint : MonoBehaviour
                     float ratio = (float)i / 5;
                     Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
                     findClosestPointAndDistance(points, divisionPoint);
-                    float difficulty = SceneData.SC != sceneType.zigzag ? (float)Difficulty.DF : Difficulty.DF == difficultyLevel.easy? 2f : Difficulty.DF == difficultyLevel.normal? 1.5f : 1f;
+                    float difficulty = SceneData.SC != sceneType.zigzag ? (float)Difficulty.DF : Difficulty.DF == difficultyLevel.easy? 2f : Difficulty.DF == difficultyLevel.normal? 1f : 1f;
                     if(distance >= difficulty){
                         flag = false;
                     }

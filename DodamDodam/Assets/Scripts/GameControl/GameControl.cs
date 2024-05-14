@@ -70,6 +70,7 @@ public class ChangeGame : MonoBehaviour
             case (modeType.play):
                 if (order >= Scenario.PS.Count) {
                     result_canvas.SetActive(true);
+                    print("끝");
 
                     score.text = timer.GetComponent<Timer>().T.ToString("N2");
                     error.text = ErrorCount.errorCount.ToString();

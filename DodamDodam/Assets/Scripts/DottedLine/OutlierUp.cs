@@ -16,7 +16,7 @@ public class OutlierUp : Dotted
             }
             else if(data.difficulty == difficultyLevel.normal){
                 for(int i=0; i < array.Length; i++){
-                    arr[i] = array[i] + Vector3.up * 1.5f * (float)Math.Sqrt(2);
+                    arr[i] = array[i] + Vector3.up * 1f * (float)Math.Sqrt(2);
                 }
             }
             else{
