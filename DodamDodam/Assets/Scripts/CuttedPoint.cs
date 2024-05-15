@@ -6,38 +6,43 @@ using handSide;
 using sceneData;
 using gameCtrl;
 
+
 public class CuttedPoint : MonoBehaviour
 {
     public event Action Error;
     public float Width = 0.25f;
     public GameObject objectHand;
     public GameObject scissors;
-    public GameObject objectOfLine;
-    public GameObject objectOfRedLine;
     public GameObject ctrl;
     
     private HandTracker _handtracker;
     private LineRenderer lineRenderer;
     private LineRenderer dottedLine;
     private LineRenderer redLine;
+
+    private LineRenderer UpperLine;
+    private LineRenderer LowerLine;
     private hand Hand;
     private float distance;
     private Vector3 closestPoint;
     private RectTransform paperRT;
-    private DottedLine dottedData;
     private ChangeGame CtrlG;
+    Vector3 start;
+    Vector3 end;
     bool excapebit = false;
     Vector3[] points;
+    Vector3[] outlierUp;
+    Vector3[] outlierDown;
 
 
     void Start()
     {
-        paperRT = GameObject.Find("paper").GetComponent<RectTransform>();
-        dottedLine = objectOfLine.GetComponent<LineRenderer>();
-        dottedData = objectOfLine.GetComponent<DottedLine>();
         _handtracker = gameObject.AddComponent<HandTracker>();
-        redLine = objectOfRedLine.GetComponent<LineRenderer>();
-        CtrlG = ctrl.GetComponent<ChangeGame>();
+        paperRT = GameObject.Find("paper").GetComponent<RectTransform>();
+        dottedLine = GameObject.Find("DottedLine").GetComponent<LineRenderer>();
+        redLine = GameObject.Find("RedLine").GetComponent<LineRenderer>();
+        UpperLine = GameObject.Find("OutlierUp").GetComponent<LineRenderer>();
+        LowerLine = GameObject.Find("OutlierDown").GetComponent<LineRenderer>();
         
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1; // 시작 위치를 라인에 추가
@@ -45,6 +50,7 @@ public class CuttedPoint : MonoBehaviour
         lineRenderer.startWidth = Width;
         lineRenderer.endWidth = Width;
 
+        CtrlG = FindAnyObjectByType<ChangeGame>();
         Hand = FindAnyObjectByType<hand>();
         if(Hand != null){
             Hand.isHold += (isGrabbed) => {
@@ -68,15 +74,21 @@ public class CuttedPoint : MonoBehaviour
             
                 int pointsCount = dottedLine.positionCount;
                 points = new Vector3[pointsCount];
+                outlierUp = new Vector3[pointsCount];
+                outlierDown = new Vector3[pointsCount];
                 dottedLine.GetPositions(points);//현재 위치한 씬의 점선 불러오기
+                UpperLine.GetPositions(outlierUp);
+                LowerLine.GetPositions(outlierDown);
                 //경계를 벗어났을 때에 대한 예외 처리
+                
                 bool flag = true;
                 for(int i=1; i<=5; i++){
                     float ratio = (float)i / 5;
                     Vector3 divisionPoint = Vector3.Lerp(transform.position, destination, ratio);
-                    findClosestPointAndDistance(points, divisionPoint);
+                    bool upBit = isUpOrDown(outlierUp, divisionPoint);//위 경계선의 아래에 있으면 false
+                    bool downBit = isUpOrDown(outlierDown, divisionPoint);//아래 경계선의 위에 있으면 true
                     float difficulty = SceneData.SC != sceneType.zigzag ? (float)Difficulty.DF : Difficulty.DF == difficultyLevel.easy? 2f : Difficulty.DF == difficultyLevel.normal? 1f : 1f;
-                    if(distance >= difficulty){
+                    if(upBit || !downBit){
                         flag = false;
                     }
                     if ((HandSide.HS == whichSide.right && divisionPoint.x <= points[0].x || (HandSide.HS == whichSide.left && divisionPoint.x >= points[points.Length -1].x))) {excapebit = true;}
@@ -109,7 +121,7 @@ public class CuttedPoint : MonoBehaviour
         redLine.positionCount = 0;
         Error?.Invoke();
     }
-
+/*
     //배열 내 모든 선분 위의 최근접 점을 찾는 함수
     public void findClosestPointAndDistance(Vector3[] points, Vector3 position){
         distance = float.MaxValue;
@@ -137,6 +149,30 @@ public class CuttedPoint : MonoBehaviour
             return B;
         else
             return A + AB * distance;//Closest point vector
+    }*/
+
+    public bool isUpOrDown(Vector3[] arr, Vector3 P){
+        for(int i=0; i<arr.Length-1; i++){
+            if(arr[i].x <= P.x && P.x <= arr[i+1].x){
+                start = arr[i];
+                end = arr[i+1];
+            }
+        }
+        return CheckPosition(start, end, P);
+    }
+    bool CheckPosition(Vector3 A, Vector3 B, Vector3 P)
+    {
+        // 벡터 AB와 AP 계산
+        Vector2 AB = B - A;
+        Vector2 AP = P - A;
+
+        // 외적 계산
+        float crossProduct = AB.x * AP.y - AB.y * AP.x;
+
+        if (crossProduct >= 0)
+            return true;
+        else
+            return false;
     }
 
 }

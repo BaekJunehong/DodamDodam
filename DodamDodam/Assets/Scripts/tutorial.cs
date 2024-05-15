@@ -155,7 +155,7 @@ public class tutorial : MonoBehaviour
             case 4:
             //손을 움직여 방향을 조절해보세요!
             guideLineObjcet.SetActive(true);
-            if(timeSleep(1)){
+            if(timeSleep(3)){
                 step = 5;
                 audioScript.changeAudio(5);
                 instructionText.text = "6. 분홍색 점을 향해 가위질을 해보세요.";

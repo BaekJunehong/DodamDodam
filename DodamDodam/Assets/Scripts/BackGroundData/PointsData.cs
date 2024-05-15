@@ -5,7 +5,7 @@ using UnityEngine;
 namespace pointsData{
     public class PointsData{
         public int straightNum = 2;
-        public int zigzagNum_hard = 9;
+        public int zigzagNum_hard = 8;
         public int zigzagNum_easy = 5;
         public int zigzagNum_normal = 7;
         public int curveNum = 21;
@@ -56,7 +56,7 @@ namespace pointsData{
             }
 
             for(int i = 0; i < zigzagNum_hard; i++){
-                points_zigzag_hard[i] = i%2==0 ? new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,-2f,0) : new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,2f,0);
+                points_zigzag_hard[i] = i%2==0 ? new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,-1.5f,0) : new Vector3((2*posX)/(zigzagNum_hard-1)*i-posX,1.5f,0);
             }
 
             for(int i = 0; i < curveNum; i++){
