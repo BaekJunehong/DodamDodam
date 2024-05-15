@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Video;
+using UnityEngine.Android;
 
 namespace Klak.TestTools {
 
@@ -28,7 +29,7 @@ public sealed class ImageSource : MonoBehaviour
     [SerializeField] string _videoUrl = null;
 
     // Webcam options
-    [SerializeField] string _webcamName = "";
+    // [SerializeField] string _webcamName = "";
     [SerializeField] Vector2Int _webcamResolution = new Vector2Int(1920, 1080);
     [SerializeField] int _webcamFrameRate = 30;
 
@@ -119,10 +120,32 @@ public sealed class ImageSource : MonoBehaviour
         // Create a WebCamTexture and start capturing.
         if (_sourceType == SourceType.Webcam)
         {
-            _webcam = new WebCamTexture
-              (_webcamName,
-               _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
-            _webcam.Play();
+            if(!Permission.HasUserAuthorizedPermission(Permission.Camera))
+            {
+                Permission.RequestUserPermission(Permission.Camera);
+            }
+
+            WebCamDevice[] devices = WebCamTexture.devices;
+            int frontCameraIndex = -1;
+
+            for(int i=0; i<devices.Length; i++)
+            {
+                if(devices[i].isFrontFacing == true)
+                {
+                    frontCameraIndex = i;
+                    break;
+                }
+            }
+
+            if(frontCameraIndex >= 0)
+            {
+                _webcam = new WebCamTexture
+                (devices[frontCameraIndex].name,
+                _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
+                // _webcam = new WebCamTexture(devices[frontCameraIndex].name);
+                // _webcam.requestedFPS = 30;
+                _webcam.Play();
+            }
         }
 
         // Card source type:
@@ -140,7 +163,8 @@ public sealed class ImageSource : MonoBehaviour
         if (_webcam != null)
         {
             _webcam.Stop();
-            Destroy(_webcam);
+            WebCamTexture.Destroy(_webcam);
+            _webcam = null;
         }
         if (_buffer != null) Destroy(_buffer);
         if (_material != null) Destroy(_material);
