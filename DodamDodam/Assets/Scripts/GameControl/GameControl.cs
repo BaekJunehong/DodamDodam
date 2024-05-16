@@ -22,13 +22,12 @@ public class ChangeGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        progress = GameObject.Find("Progress").GetComponent<Progress>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(progress.prog >= 100) {
             // order = order + 1;
 
             // switch (Mode.M)
@@ -59,7 +58,7 @@ public class ChangeGame : MonoBehaviour
             //         }
             //         break;
             // }
-        }
+        
     }
 
     public void nextGame()
@@ -71,14 +70,18 @@ public class ChangeGame : MonoBehaviour
                 if (order >= Scenario.PS.Count) {
                     GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("GameComponent");
 
+                    result_canvas.SetActive(true);
+                    score.text = GameObject.Find("Timer").GetComponent<Timer>().T.ToString("N2");
+                    error.text = GameObject.Find("Error").GetComponent<ErrorCount>().E.ToString("N");
+
                     foreach (GameObject obj in objectsWithTag)
                     {
                         Destroy(obj);
                     }
 
-                    result_canvas.SetActive(true);
-                    score.text = timer.GetComponent<Timer>().T.ToString("N2");
-                    error.text = ErrorCount.errorCount.ToString();
+                    // result_canvas.SetActive(true);
+                    // score.text = timer.GetComponent<Timer>().T.ToString("N2");
+                    // error.text = ErrorCount.errorCount.ToString();
                 }
 
                 else {

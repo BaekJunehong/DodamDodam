@@ -23,4 +23,8 @@ public class ErrorCount : MonoBehaviour
     private void printError(){
         error.text = string.Format("{0}", errorCount);
     }
+
+    public float E{
+        get => errorCount;
+    }
 }
