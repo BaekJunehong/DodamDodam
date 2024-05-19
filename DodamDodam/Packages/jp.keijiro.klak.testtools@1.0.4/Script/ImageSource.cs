@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Video;
 using UnityEngine.Android;
+using System.Collections;
 
 namespace Klak.TestTools {
 
@@ -120,32 +121,7 @@ public sealed class ImageSource : MonoBehaviour
         // Create a WebCamTexture and start capturing.
         if (_sourceType == SourceType.Webcam)
         {
-            if(!Permission.HasUserAuthorizedPermission(Permission.Camera))
-            {
-                Permission.RequestUserPermission(Permission.Camera);
-            }
-
-            WebCamDevice[] devices = WebCamTexture.devices;
-            int frontCameraIndex = -1;
-
-            for(int i=0; i<devices.Length; i++)
-            {
-                if(devices[i].isFrontFacing == true)
-                {
-                    frontCameraIndex = i;
-                    break;
-                }
-            }
-
-            if(frontCameraIndex >= 0)
-            {
-                _webcam = new WebCamTexture
-                (devices[frontCameraIndex].name,
-                _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
-                // _webcam = new WebCamTexture(devices[frontCameraIndex].name);
-                // _webcam.requestedFPS = 30;
-                _webcam.Play();
-            }
+            StartCoroutine(InitializeWebcam());
         }
 
         // Card source type:
@@ -155,6 +131,56 @@ public sealed class ImageSource : MonoBehaviour
             var dims = new Vector2(OutputBuffer.width, OutputBuffer.height);
             _material.SetVector("_Resolution", dims);
             Graphics.Blit(null, OutputBuffer, _material, 0);
+        }
+    }
+
+    IEnumerator InitializeWebcam(){
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Permission.RequestUserPermission(Permission.Camera);
+            // 사용자의 권한 응답을 기다림
+            while (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+            {
+                yield return new WaitForSeconds(0.1f);  // 응답 대기 시간, 필요에 따라 조정 가능
+            }
+        }
+
+        // 권한 부여 후 웹캠 초기화 진행
+        if (Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            WebCamDevice[] devices = WebCamTexture.devices;
+            int frontCameraIndex = -1;
+
+            // 전면 카메라 찾기
+            for (int i = 0; i < devices.Length; i++)
+            {
+                if (devices[i].isFrontFacing)
+                {
+                    frontCameraIndex = i;
+                    break;
+                }
+            }
+
+            // 전면 카메라가 존재하면 초기화 및 실행
+            if (frontCameraIndex >= 0)
+            {
+                _webcam = new WebCamTexture
+                (devices[frontCameraIndex].name,
+                _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
+                // _webcam = new WebCamTexture(devices[frontCameraIndex].name);
+                // _webcam.requestedFPS = 30;
+                _webcam.Play();
+                Debug.Log("웹캠이 초기화되고 실행되었습니다.");
+            }
+            else
+            {
+                Debug.Log("전면 카메라를 찾을 수 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.Log("카메라 접근 권한이 거부되었습니다.");
+            // 권한 거부에 대한 추가적인 처리 로직
         }
     }
 
