@@ -161,11 +161,14 @@ public class NetClient : MonoBehaviour
             } else if (message == "User created successfully\n") {
                 GameObject.Find("signup_popup").SetActive(false);
             } else if (message == "Score saved successfully\n") {
-                bytesRead = read_stream.Read(data, 0, data.Length);
-                
                 List<int> valueList = new List<int>();
-                for (int i = 0; i < bytesRead; i++) {
-                    valueList.Add(data[i]);
+                
+                bytesRead = read_stream.Read(data, 0, data.Length);
+                message = Encoding.UTF8.GetString(data, 0, bytesRead);
+
+                string[] getList = message.Split(',');
+                for (int i = 0; i < getList.Length; i++) {
+                    valueList.Add(int.Parse(getList[i]));
                 }
 
                 for (int i = 0; i < valueList.Count; i++) {
@@ -200,7 +203,7 @@ public class NetClient : MonoBehaviour
     private void showGraph(List<int> valueList)
     {
         float graphHeight = graphContainer.sizeDelta.y;
-        float yMaximum = 200f;
+        float yMaximum = 600f;
         float xSize = 50f;
 
         GameObject lastCircleGameObject = null;
