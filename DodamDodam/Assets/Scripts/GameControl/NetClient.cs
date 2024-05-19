@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -161,21 +162,32 @@ public class NetClient : MonoBehaviour
                 GameObject.Find("signup_popup").SetActive(false);
             } else if (message == "Score saved successfully\n") {
                 List<int> valueList = new List<int>();
+                List<string> dateList = new List<string>();
                 
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
 
+                Task.Delay(200).Wait();
+
                 string[] getList = message.Split(',');
-                for (int i = 0; i < getList.Length; i++) {
-                    valueList.Add(int.Parse(getList[i]));
+                for (int i = 0; i < getList.Length; i ++) {
+                    if (i % 2 == 0) {
+                        valueList.Add(int.Parse(getList[i]));
+                    } else {
+                        dateList.Add(getList[i]);
+                    }
                 }
 
                 for (int i = 0; i < valueList.Count; i++) {
                     Debug.Log(valueList[i]);
                 }
 
-                showGraph(valueList);
+                for (int i = 0; i < valueList.Count; i++) {
+                    Debug.Log(dateList[i]);
+                }
 
+                showGraph(valueList);
+                
                 /*
                 string[] stat = message.Split(',');
                 GameObject.Find("avg_text").GetComponent<TextMeshProUGUI>().text = "평균: " + stat[0] + ", 표준편차: " + stat[1];
@@ -208,7 +220,7 @@ public class NetClient : MonoBehaviour
         GameObject lastCircleGameObject = null;
         for (int i = 0; i < valueList.Count; i++)
         {
-            float xPosition = i * xSize;
+            float xPosition = xSize + i * xSize;
             float yPosition = (valueList[i] / yMaximum) * graphHeight;
             GameObject circleGameObject = createCircle(new Vector2(xPosition, yPosition));
             if (lastCircleGameObject != null)
@@ -221,7 +233,7 @@ public class NetClient : MonoBehaviour
             labelX.SetParent(graphContainer);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, 500f);
-            labelX.GetComponent<TextMeshProUGUI>().text = i.ToString();
+            labelX.GetComponent<Text>().text = i.ToString();
         }
     }
 
