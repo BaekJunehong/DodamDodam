@@ -9,7 +9,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using CodeMonkey.Utils;
 
-namespace netClient {
 public class NetClient : MonoBehaviour
 {
     private TcpClient client;
@@ -17,6 +16,8 @@ public class NetClient : MonoBehaviour
     private int serverPort = 50001;
     private static string user_Name;
     private RectTransform graphContainer;
+    private RectTransform labelTemplateX;
+    private RectTransform labelTemplateY;
     [SerializeField] private Sprite circleSprite;
 
     void Start()
@@ -30,11 +31,9 @@ public class NetClient : MonoBehaviour
     }
 
     private void Awake() {
-        try {
-            graphContainer = GameObject.Find("graphContainer").GetComponent<RectTransform>();
-        } catch (NullReferenceException e) {
-            Debug.Log(e);
-        }
+        graphContainer = GameObject.Find("graphContainer").GetComponent<RectTransform>();
+        labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
+        labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
     }
 
     public static string getName {
@@ -217,6 +216,12 @@ public class NetClient : MonoBehaviour
                 CreateDotConnection(lastCircleGameObject.GetComponent<RectTransform>().anchoredPosition, circleGameObject.GetComponent<RectTransform>().anchoredPosition);
             }
             lastCircleGameObject = circleGameObject;
+
+            RectTransform labelX = Instantiate(labelTemplateX);
+            labelX.SetParent(graphContainer);
+            labelX.gameObject.SetActive(true);
+            labelX.anchoredPosition = new Vector2(xPosition, 500f);
+            labelX.GetComponent<TextMeshProUGUI>().text = i.ToString();
         }
     }
 
@@ -241,5 +246,4 @@ public class NetClient : MonoBehaviour
             client.Close();
         }
     }
-}
 }
