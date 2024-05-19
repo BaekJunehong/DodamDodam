@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 using UnityEngine.Video;
 using UnityEngine.Android;
 using System.Collections;
+using System.Linq;
 
 namespace Klak.TestTools {
 
@@ -164,9 +165,8 @@ public sealed class ImageSource : MonoBehaviour
             // 전면 카메라가 존재하면 초기화 및 실행
             if (frontCameraIndex >= 0)
             {
-                _webcam = new WebCamTexture
-                (devices[frontCameraIndex].name,
-                _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
+                
+                _webcam = new WebCamTexture(devices[frontCameraIndex].name, _webcamResolution.x, _webcamResolution.y, _webcamFrameRate);
                 // _webcam = new WebCamTexture(devices[frontCameraIndex].name);
                 // _webcam.requestedFPS = 30;
                 _webcam.Play();
