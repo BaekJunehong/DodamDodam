@@ -24,7 +24,8 @@ public class ErrorCount : MonoBehaviour
         error.text = string.Format("{0}", errorCount);
     }
 
-    public float E{
+    public static int E{
         get => errorCount;
+        set => errorCount = value;
     }
 }

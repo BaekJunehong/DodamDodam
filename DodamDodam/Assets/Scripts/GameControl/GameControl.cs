@@ -16,13 +16,13 @@ public class ChangeGame : MonoBehaviour
     public GameObject result_canvas;
     public TextMeshProUGUI score;
     public TextMeshProUGUI error;
-    Progress progress;
     public GameObject timer;
     
     // Start is called before the first frame update
     void Start()
     {
-
+        Timer.T = 0.00f;
+        ErrorCount.E = 0;
     }
 
     // Update is called once per frame
@@ -71,8 +71,10 @@ public class ChangeGame : MonoBehaviour
                     GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("GameComponent");
 
                     result_canvas.SetActive(true);
-                    score.text = GameObject.Find("Timer").GetComponent<Timer>().T.ToString("N2");
-                    error.text = GameObject.Find("Error").GetComponent<ErrorCount>().E.ToString("N");
+                    //score.text = GameObject.Find("Timer").GetComponent<Timer>().T.ToString("N2");
+                    //error.text = GameObject.Find("Error").GetComponent<ErrorCount>().E.ToString("N");
+                    score.text = Timer.T.ToString("N2");
+                    error.text = ErrorCount.E.ToString("N");
 
                     foreach (GameObject obj in objectsWithTag)
                     {
