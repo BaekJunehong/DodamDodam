@@ -32,9 +32,11 @@ public class NetClient : MonoBehaviour
     }
 
     private void Awake() {
-        graphContainer = GameObject.Find("graphContainer").GetComponent<RectTransform>();
-        labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
-        labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
+        if (SceneManager.GetActiveScene().name == "Result") {
+            graphContainer = GameObject.Find("graphContainer").GetComponent<RectTransform>();
+            labelTemplateX = graphContainer.Find("labelTemplateX").GetComponent<RectTransform>();
+            labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
+        }
     }
 
     public static string getName {
@@ -234,6 +236,17 @@ public class NetClient : MonoBehaviour
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, 500f);
             labelX.GetComponent<Text>().text = i.ToString();
+        }
+
+        int seperatorCount = 10;
+        for (int i = 0; i < seperatorCount; i++)
+        {
+            RectTransform labelY = Instantiate(labelTemplateY);
+            labelY.SetParent(graphContainer);
+            labelY.gameObject.SetActive(true);
+            float normalizedValue = i * 1f / seperatorCount;
+            labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
+            labelY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
         }
     }
 
