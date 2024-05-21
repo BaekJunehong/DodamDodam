@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score_text: {fileID: 653785336}
   error_text: {fileID: 1543736533}
-  name_text: {fileID: 0}
+  name_text: {fileID: 1647558152}
 --- !u!1 &1273990768
 GameObject:
   m_ObjectHideFlags: 0

@@ -190,10 +190,12 @@ public class NetClient : MonoBehaviour
 
                 showGraph(valueList);
                 
-                /*
-                string[] stat = message.Split(',');
-                GameObject.Find("avg_text").GetComponent<TextMeshProUGUI>().text = "평균: " + stat[0] + ", 표준편차: " + stat[1];
-                */
+                bytesRead = read_stream.Read(data, 0, data.Length);
+                message = Encoding.UTF8.GetString(data, 0, bytesRead);
+                
+                float avg = float.Parse(message);
+                GameObject.Find("avg_text").GetComponent<TextMeshProUGUI>().text = "평균값: " + avg.ToString("N2");
+                
             }
         } catch (SocketException s) {
             Debug.Log(s);
