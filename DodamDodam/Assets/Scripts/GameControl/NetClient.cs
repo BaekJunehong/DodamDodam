@@ -121,7 +121,7 @@ public class NetClient : MonoBehaviour
         SendData(write_stream, "save", name, score);
         NetworkStream read_stream = client.GetStream();
         while (!read_stream.DataAvailable);
-        ReadData(read_stream);
+        ReadData(read_stream, score);
         write_stream.Close();
         read_stream.Close();
     }
@@ -143,7 +143,7 @@ public class NetClient : MonoBehaviour
     }
 
     // 서버로부터 로그인 혹은 회원가입 결과 메시지 수신 및 처리
-    public void ReadData(NetworkStream read_stream)
+    public void ReadData(NetworkStream read_stream, string score = "")
     {
         try {
             string message = "";
@@ -163,8 +163,8 @@ public class NetClient : MonoBehaviour
             } else if (message == "User created successfully\n") {
                 GameObject.Find("signup_popup").SetActive(false);
             } else if (message == "Score saved successfully\n") {
-                List<int> valueList = new List<int>();
-                List<string> dateList = new List<string>();
+                List<float> valueList = new List<float>();
+                List<string> monthList = new List<string>();
                 
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
@@ -174,18 +174,21 @@ public class NetClient : MonoBehaviour
                 string[] getList = message.Split(',');
                 for (int i = 0; i < getList.Length; i ++) {
                     if (i % 2 == 0) {
-                        valueList.Add(int.Parse(getList[i]));
+                        valueList.Add(float.Parse(getList[i]));
                     } else {
-                        dateList.Add(getList[i]);
+                        monthList.Add(getList[i]);
                     }
                 }
+
+                valueList.Add(float.Parse(score));
+                monthList.Add("현재");
 
                 for (int i = 0; i < valueList.Count; i++) {
                     Debug.Log(valueList[i]);
                 }
 
-                for (int i = 0; i < valueList.Count; i++) {
-                    Debug.Log(dateList[i]);
+                for (int i = 0; i < monthList.Count; i++) {
+                    Debug.Log(monthList[i]);
                 }
 
                 showGraph(valueList);
@@ -215,7 +218,7 @@ public class NetClient : MonoBehaviour
         return gameObject;
     }
 
-    private void showGraph(List<int> valueList)
+    private void showGraph(List<float> valueList)
     {
         float graphHeight = graphContainer.sizeDelta.y;
         float yMaximum = 600f;
@@ -237,6 +240,7 @@ public class NetClient : MonoBehaviour
             labelX.SetParent(graphContainer);
             labelX.gameObject.SetActive(true);
             labelX.anchoredPosition = new Vector2(xPosition, 500f);
+            labelX.transform.localScale = new Vector3(1f, 1f, 1f);
             labelX.GetComponent<Text>().text = i.ToString();
         }
 
@@ -248,6 +252,7 @@ public class NetClient : MonoBehaviour
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / seperatorCount;
             labelY.anchoredPosition = new Vector2(-7f, normalizedValue * graphHeight);
+            labelY.transform.localScale = new Vector3(1f, 1f, 1f);
             labelY.GetComponent<Text>().text = Mathf.RoundToInt(normalizedValue * yMaximum).ToString();
         }
     }
