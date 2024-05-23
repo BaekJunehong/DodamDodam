@@ -15,6 +15,7 @@ public class HandTracker : MonoBehaviour
 
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
     private Vector3 CurrentDirection = new Vector3(0, 0, 0);
+    private Vector3 RawPos = new Vector3(0, 0, 0);
 
 
     void Awake(){
@@ -51,6 +52,12 @@ public class HandTracker : MonoBehaviour
         return result;
     }
 
+    public Vector3 GetRawVertex(int index)
+    {
+        if (!isHandexist()) return RawPos;
+        RawPos = HandAnimator.instance.GetPoint(index);
+        return RawPos;
+    }
     public Vector3 GetVertex(int index)
     {
         if (!isHandexist()) return CurrentVector;

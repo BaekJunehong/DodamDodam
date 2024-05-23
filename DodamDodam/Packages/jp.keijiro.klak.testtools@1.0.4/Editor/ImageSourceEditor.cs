@@ -80,7 +80,7 @@ sealed class ImageSourceEditor : Editor
         if (type == ImageSource.SourceType.Webcam)
         {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(_webcamName, Labels.DeviceName);
+            // EditorGUILayout.PropertyField(_webcamName, Labels.DeviceName);
             var rect = EditorGUILayout.GetControlRect(false, GUILayout.Width(60));
             if (EditorGUI.DropdownButton(rect, Labels.Select, FocusType.Keyboard))
                 ShowDeviceSelector(rect);
