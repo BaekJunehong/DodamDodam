@@ -20,6 +20,7 @@ public class NetClient : MonoBehaviour
     private RectTransform labelTemplateX;
     private RectTransform labelTemplateY;
     [SerializeField] private Sprite circleSprite;
+    private int click = 0;
 
     void Start()
     {
@@ -104,26 +105,32 @@ public class NetClient : MonoBehaviour
     // 결과 팝업에서 저장 버튼 클릭 시 점수 저장 기능 수행
     public void OnSaveButtonClicked()
     {
-        if (client == null || !client.Connected) {
-            // TcpClient에서 서버로 소켓 연결
-            try {
-                client = new TcpClient(serverIP, serverPort);
-            } catch (Exception e) {
-                Debug.Log(e);
-                return;
+        if (click == 0)
+        {
+            if (client == null || !client.Connected) {
+                // TcpClient에서 서버로 소켓 연결
+                try {
+                    client = new TcpClient(serverIP, serverPort);
+                } catch (Exception e) {
+                    Debug.Log(e);
+                    return;
+                }
             }
+
+            string name = GameObject.Find("name_text").GetComponent<TextMeshProUGUI>().text;
+            string score = GameObject.Find("score_text").GetComponent<TextMeshProUGUI>().text;
+
+            NetworkStream write_stream = client.GetStream();
+            SendData(write_stream, "save", name, score);
+            NetworkStream read_stream = client.GetStream();
+            while (!read_stream.DataAvailable);
+            ReadData(read_stream, score);
+            write_stream.Close();
+            read_stream.Close();
+            click++;
+        } else {
+            Debug.Log("No more data can be saved.");
         }
-
-        string name = GameObject.Find("name_text").GetComponent<TextMeshProUGUI>().text;
-        string score = GameObject.Find("score_text").GetComponent<TextMeshProUGUI>().text;
-
-        NetworkStream write_stream = client.GetStream();
-        SendData(write_stream, "save", name, score);
-        NetworkStream read_stream = client.GetStream();
-        while (!read_stream.DataAvailable);
-        ReadData(read_stream, score);
-        write_stream.Close();
-        read_stream.Close();
     }
 
     // 서버로 로그인 혹은 회원가입 데이터 전송
@@ -169,7 +176,7 @@ public class NetClient : MonoBehaviour
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
 
-                Task.Delay(200).Wait();
+                //Task.Delay(200).Wait();
 
                 string[] getList = message.Split(',');
                 for (int i = 0; i < getList.Length; i ++) {
@@ -192,13 +199,13 @@ public class NetClient : MonoBehaviour
                 }
 
                 showGraph(valueList);
-                
+                /*
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
                 
                 float avg = float.Parse(message);
                 GameObject.Find("avg_text").GetComponent<TextMeshProUGUI>().text = "평균값: " + avg.ToString("N2");
-                
+                */
             }
         } catch (SocketException s) {
             Debug.Log(s);
@@ -210,6 +217,7 @@ public class NetClient : MonoBehaviour
         GameObject gameObject = new GameObject("circle", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
+        gameObject.GetComponent<Image>().color = new Color(0, 1, 0, 1);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = anchoredPosition;
         rectTransform.sizeDelta = new Vector2(11, 11);
@@ -261,7 +269,7 @@ public class NetClient : MonoBehaviour
     {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
-        gameObject.GetComponent<Image>().color = new Color(1, 1, 1, .5f);
+        gameObject.GetComponent<Image>().color = new Color(0, 1, 0, 1);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

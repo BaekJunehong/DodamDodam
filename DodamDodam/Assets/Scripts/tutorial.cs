@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using HandUtils;
 using handSide;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class tutorial : MonoBehaviour
 {
@@ -39,10 +39,12 @@ public class tutorial : MonoBehaviour
     private LineRenderer cuttedLineRenderer;
     private audioManager audioScript;
     private bool isCoroutineRunning = false;
+    private LineRenderer dottedLine;
 
     void Start()
     {
         cuttedLineRenderer = cuttedPointObject.GetComponent<LineRenderer>();
+        dottedLine = GameObject.Find("DottedLine").GetComponent<LineRenderer>();
         _handtracker = gameObject.AddComponent<HandTracker>();
 
         Hand = FindObjectOfType<hand>();
@@ -58,9 +60,12 @@ public class tutorial : MonoBehaviour
         }
         scissorsObject.transform.rotation = HandSide.HS == whichSide.right ? Quaternion.Euler(0, 0, 90) : Quaternion.Euler(0, 0, 270);
         cuttedPointObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(7, 0, 0) : new Vector3(-7, 0, 0);
-        destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(1, 0, 0) : new Vector3(-1, 0, 0);
+        destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(4f - 1.5f*(float)Math.Sqrt(3), -1.5f, 0) : new Vector3(-4f + 1.5f*(float)Math.Sqrt(3), -1.5f, 0);
 
         audioScript = audioManager.GetComponent<audioManager>();
+        dottedLine.positionCount = 2;
+        dottedLine.SetPosition(0, cuttedPointObject.transform.position);
+        dottedLine.SetPosition(1, HandSide.HS == whichSide.right ? cuttedPointObject.transform.position + Vector3.left * 3f : cuttedPointObject.transform.position + Vector3.right * 3f);
 
         audioScript.playAudio(0);
         instructionText.text = "1. 손으로 가위를 잡으세요.";
@@ -86,6 +91,8 @@ public class tutorial : MonoBehaviour
         audioScript.changeAudio(5);
         instructionText.text = "6. 분홍색 점을 향해 가위질을 해보세요.";
         print("분홍색 점을 향해 가위질을 해보세요");
+        dottedLine.positionCount++;
+        dottedLine.SetPosition(2, destinationObject.transform.position);
         destinationObject.SetActive(true);
         step = 5;
         isCoroutineRunning = false;
@@ -207,19 +214,19 @@ public class tutorial : MonoBehaviour
             ObjectMove();
             if(Vector3.Distance(scissorsObject.transform.position, cuttedPointObject.transform.position) <= 0.7f && isGrabbedScissors){
                 //성공을 출력
-                step = 7;
+                step = -1;/*
                 audioScript.changeAudio(7);
                 instructionText.text = "8. 강하게 가위질해보세요.";
-                print("8. 강하게 가위질해보세요!");
+                print("8. 강하게 가위질해보세요!");*/
             }
-            break;
+            break;/*
             case 7:
             //강하게 가위질해보세요!
             if(power >= 2 && isGrabbedScissors && !isCoroutineRunning){
                 StartCoroutine("strongScissors", direction);
             }
             
-            break;
+            break;*/
         }
     }
 }
