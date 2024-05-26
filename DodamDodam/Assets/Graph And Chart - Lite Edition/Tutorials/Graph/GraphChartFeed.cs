@@ -9,8 +9,7 @@ public class GraphChartFeed : MonoBehaviour
     {
         (7, 2),
         (8, 3),
-        (9, 4),
-        (10, 5)
+        (9, 4)
     };
 	void Start ()
     {
