@@ -60,7 +60,7 @@ public class tutorial : MonoBehaviour
         }
         scissorsObject.transform.rotation = HandSide.HS == whichSide.right ? Quaternion.Euler(0, 0, 90) : Quaternion.Euler(0, 0, 270);
         cuttedPointObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(7, 0, 0) : new Vector3(-7, 0, 0);
-        destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(4-3f/(float)Math.Sqrt(2), -3f/(float)Math.Sqrt(2), 0) : new Vector3(0, -4+3f/(float)Math.Sqrt(2), 0);
+        destinationObject.transform.position = HandSide.HS == whichSide.right ? new Vector3(4f - 1.5f*(float)Math.Sqrt(3), -1.5f, 0) : new Vector3(-4f + 1.5f*(float)Math.Sqrt(3), -1.5f, 0);
 
         audioScript = audioManager.GetComponent<audioManager>();
         dottedLine.positionCount = 2;
