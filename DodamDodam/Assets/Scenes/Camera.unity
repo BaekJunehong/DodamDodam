@@ -3461,7 +3461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Alert_text: {fileID: 0}
   _source: {fileID: 1726397152}
-  _resources: {fileID: 11400000, guid: 93cd4e0834db98c43be8caae5cad094f, type: 2}
+  _resources: {fileID: 11400000, guid: b766176cf5fff294fad8dff3eaa36726, type: 2}
   _useAsyncReadback: 1
   _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
