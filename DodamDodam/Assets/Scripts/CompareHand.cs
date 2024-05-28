@@ -13,6 +13,7 @@ public class CompareHand : MonoBehaviour
     private Vector3 handBot;
     private Vector3 screenTop;
     private Vector3 screenBot;
+    public bool is_done = false;
     float time = 0;
     public GameObject hand;
     RectTransform hand_transform;
@@ -33,15 +34,18 @@ public class CompareHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(checkUp()){
-            SceneManager.LoadScene("GamePlay");
+        if(is_done){
+            Debug.Log(time);
+            if(checkUp()){
+                SceneManager.LoadScene("GamePlay");
+            }
         }
     }
 
     private bool checkUp(){
         if(compareHand()){
             time += Time.deltaTime;
-            Debug.Log(time);
+            
             if(time >= 3f){
                 time = 0;
                 return true;
@@ -54,7 +58,6 @@ public class CompareHand : MonoBehaviour
         handTop = _handtracker.GetVertex(12);
         handBot = _handtracker.GetVertex(0);
 
-
-        return 4f >= Vector3.Distance(handTop, screenTop) &&  4f >= Vector3.Distance(handBot, screenBot);
+        return 1f >= Vector3.Distance(handTop, screenTop) &&  1f >= Vector3.Distance(handBot, screenBot);
     }
 }

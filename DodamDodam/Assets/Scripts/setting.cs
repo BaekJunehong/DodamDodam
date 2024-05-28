@@ -118,6 +118,7 @@ public class Setting : MonoBehaviour
 
     public void maskOff()
     {
+        GetComponent<CompareHand>().is_done = true;
         mask.SetActive(false);
     }
     public void modeOn()
