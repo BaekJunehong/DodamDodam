@@ -10,7 +10,7 @@ using gameCtrl;
 public class CuttedPoint : MonoBehaviour
 {
     public event Action Error;
-    public event Action Cutting;
+    public event Action CuttingCount;
     public float Width = 0.25f;
     public GameObject objectHand;
     public GameObject scissors;
@@ -107,7 +107,7 @@ public class CuttedPoint : MonoBehaviour
                     lineRenderer.positionCount ++; // 점의 수를 증가시킴
                     lineRenderer.SetPosition(lineRenderer.positionCount - 1, destination); // 새로운 위치를 추가
                     transform.position = destination;
-                    Cutting?.Invoke();
+                    CuttingCount?.Invoke();
                     if(excapebit == true){
                         excapebit = false;
                         CtrlG.nextGame();

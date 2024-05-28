@@ -6,13 +6,12 @@ using UnityEngine;
 public class CuttingCount : MonoBehaviour
 {
     public static int cuttingCount = 0;
-    public Text cutting;
     private CuttedPoint cuttingHandler;
     void Start() {
         //errorHandler
         cuttingHandler = FindObjectOfType<CuttedPoint>();
         if(cuttingHandler != null){
-            cuttingHandler.Cutting += ()=> {
+            cuttingHandler.CuttingCount += ()=> {
                 cuttingCount++;
             };
         }
