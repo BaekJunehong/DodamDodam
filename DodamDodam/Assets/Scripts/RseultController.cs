@@ -12,13 +12,12 @@ public class ResultController : MonoBehaviour
     void Start()
     {
         score_text.text = Timer.T.ToString("N2");
-        error_text.text = ErrorCount.errorCount.ToString("0");
+        error_text.text = ((float)ErrorCount.E / (float)CuttingCount.C).ToString();
         name_text.text = NetClient.getName;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
