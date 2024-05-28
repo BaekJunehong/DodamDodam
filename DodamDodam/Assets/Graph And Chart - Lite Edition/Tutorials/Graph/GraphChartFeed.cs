@@ -5,15 +5,18 @@ using System.Collections.Generic;
 
 public class GraphChartFeed : MonoBehaviour
 {
-    public List<(int, int)> tupleList = new List<(int, int)>
+    public List<(int, float)> tupleList = new List<(int, float)>
     {
-        (7, 2),
-        (8, 3),
-        (9, 4)
+        (5, 5),
+        (6, 150),
+        (7, 120),
+        (8, 130),
+        (9, 106.24f),
+        (10, 130)
     };
 	void Start ()
     {
-  
+
         var axis = GetComponent<HorizontalAxis>();
         axis.WithEdges = false;
 
@@ -36,7 +39,15 @@ public class GraphChartFeed : MonoBehaviour
                 }
                 else
                 {
-                    graph.HorizontalValueToStringMap[tupleList[i].Item1] = tupleList[i].Item1+"월";
+                    if ( i == 0)
+                    {
+                        graph.HorizontalValueToStringMap[tupleList[i].Item1] = "0";
+                    }
+
+                    else
+                    {
+                        graph.HorizontalValueToStringMap[tupleList[i].Item1] = tupleList[i].Item1+"월";
+                    }
                 }
             }
             graph.DataSource.EndBatch();
