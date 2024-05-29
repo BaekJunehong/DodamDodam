@@ -13,7 +13,7 @@ using CodeMonkey.Utils;
 public class NetClient : MonoBehaviour
 {
     private TcpClient client;
-    private string serverIP = "35.216.33.115";
+    private string serverIP = "35.216.111.151";
     private int serverPort = 50001;
     private static string user_Name;
     private RectTransform graphContainer;
