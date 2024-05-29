@@ -3402,6 +3402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cdcdc983b935bd429d7042ca8b5c9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  is_done: 0
   hand: {fileID: 1566062597}
 --- !u!1 &1909952657
 GameObject:
