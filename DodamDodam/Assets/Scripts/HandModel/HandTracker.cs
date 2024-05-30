@@ -65,6 +65,13 @@ public class HandTracker : MonoBehaviour
         return CurrentVector;
     }
 
+    public Vector3 GetScreenVertex(int index, Camera cam)
+    {
+        if (!isHandexist()) return CurrentVector;
+        CurrentVector = MappingVertex(HandAnimator.instance.GetPoint(index));
+        return cam.WorldToScreenPoint(CurrentVector);
+    }
+
     public Vector3 GetCenter()
     {
         if (!isHandexist()) return CurrentVector;

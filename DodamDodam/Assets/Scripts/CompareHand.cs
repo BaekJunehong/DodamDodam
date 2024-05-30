@@ -6,21 +6,30 @@ using HandUtils;
 using Microsoft.Unity.VisualStudio.Editor;
 //using System.Numerics;
 using UnityEngine.SceneManagement;
+using Unity.Mathematics;
 
 public class CompareHand : MonoBehaviour
 {
     HandTracker _handtracker;
     private Vector3 handTop;
     private Vector3 handBot;
-    private Vector3 screenTopMax;
-    private Vector3 screenTopMin;
-    private Vector3 screenBotMax;
-    private Vector3 screenBotMin;
+    private Vector3 screenHandTop;
+    private Vector3 screenHandBot;
+    private Vector3 uiTopMax;
+    private Vector3 uiTopMin;
+    private Vector3 uiBotMax;
+    private Vector3 uiBotMin;
     private Vector3 worldTopMax;
     private Vector3 worldTopMin;
     private Vector3 worldBotMax;
     private Vector3 worldBotMin;
+    private Vector3 screenTopMax;
+    private Vector3 screenTopMin;
+    private Vector3 screenBotMax;
+    private Vector3 screenBotMin;
     private string[] directions = new string[] { "유지", "아래로", "위로", "가까히", "멀리" };
+    public Camera screen_cam;
+    public Camera hand_cam;
     private int totalSections = 6;
     public bool is_done = false;
     public RectTransform border;
@@ -32,16 +41,26 @@ public class CompareHand : MonoBehaviour
     {
         float imageHeight = border.rect.height;
         float sectionHeight = imageHeight / totalSections;
+        Vector3 localPosition = border.localPosition;
+        Vector2 size = border.rect.size;
 
-        screenTopMax = new Vector3(0, imageHeight - sectionHeight);
-        screenTopMin = new Vector3(0, imageHeight - 2*sectionHeight);
-        screenBotMax = new Vector3(0, imageHeight - 4*sectionHeight);
-        screenBotMin = new Vector3(0, imageHeight - 5*sectionHeight);
+        uiTopMax = new Vector3(localPosition.x, (localPosition.y+((size.y)/2f))-(size.y/6f), localPosition.z);
+        uiTopMin = new Vector3(localPosition.x, (localPosition.y+((size.y)/2f))-2*(size.y/6f), localPosition.z);
+        uiBotMax = new Vector3(localPosition.x, (localPosition.y+((size.y)/2f))-4*(size.y/6f), localPosition.z);
+        uiBotMin = new Vector3(localPosition.x, (localPosition.y+((size.y)/2f))-5*(size.y/6f), localPosition.z);
 
-        worldTopMax = border.TransformPoint(screenTopMax);
-        worldTopMin = border.TransformPoint(screenTopMin);
-        worldBotMax = border.TransformPoint(screenBotMax);
-        worldBotMin = border.TransformPoint(screenBotMin);
+        worldTopMax = border.TransformPoint(uiTopMax);
+        worldTopMin = border.TransformPoint(uiTopMin);
+        worldBotMax = border.TransformPoint(uiBotMax);
+        worldBotMin = border.TransformPoint(uiBotMin);
+
+        screenTopMax = screen_cam.WorldToScreenPoint(worldTopMax);
+        screenTopMin = screen_cam.WorldToScreenPoint(worldTopMin);
+        screenBotMax = screen_cam.WorldToScreenPoint(worldBotMax);
+        screenBotMin = screen_cam.WorldToScreenPoint(worldBotMin);
+
+        Debug.Log(screenTopMax);
+        Debug.Log(screenTopMin);
 
         _handtracker = gameObject.AddComponent<HandTracker>();
         //screen 내의 hand 좌표 초기화
@@ -51,7 +70,6 @@ public class CompareHand : MonoBehaviour
     void Update()
     {
         if(is_done){
-            Debug.Log(time);
             if(checkUp()){
                 SceneManager.LoadScene("GamePlay");
             }
@@ -60,8 +78,8 @@ public class CompareHand : MonoBehaviour
 
     private bool checkUp(){
         int check = compareHand();
-
         direction.text = directions[check];
+        Debug.Log(direction.text);
         if(check == 0){
             time += Time.deltaTime;
             
@@ -74,19 +92,24 @@ public class CompareHand : MonoBehaviour
         return false;
     }
     private int compareHand(){
-        handTop = _handtracker.GetVertex(12);
-        handBot = _handtracker.GetVertex(0);
+        handTop = _handtracker.GetRawVertex(12);
+        handBot = _handtracker.GetRawVertex(0);
+
+        //Vector3 worldHandTop = hand_cam.ScreenToWorldPoint(handTop);
+        screenHandTop = screen_cam.WorldToScreenPoint(handTop);
+        screenHandBot = screen_cam.WorldToScreenPoint(handBot);
+
 
         // 손 윗 부분이 넘어서는 경우
-        if (handTop.y > worldTopMax.y)
+        if (screenHandTop.y > screenTopMax.y)
         {
             // 손 아랫 부분이 넘어서는 경우
-            if (handBot.y > worldBotMax.y)
+            if (screenHandBot.y > screenBotMax.y)
             {
                 return 1;
             }
             // 손 아랫 부분이 적절한 경우
-            else if (handBot.y > worldBotMin.y)
+            else if (screenHandBot.y > screenBotMin.y)
             {
                 return 4;
             }
@@ -97,15 +120,15 @@ public class CompareHand : MonoBehaviour
             }
         }
         // 손 윗 부분이 적절할 경우
-        else if (handTop.y > worldTopMin.y)
+        else if (screenHandTop.y > screenTopMin.y)
         {
             // 손 아랫 부분이 넘어서는 경우
-            if (handBot.y > worldBotMax.y)
+            if (screenHandBot.y > screenBotMax.y)
             {
                 return 3;
             }
             // 손 아랫 부분이 적절한 경우
-            else if (handBot.y > worldBotMin.y)
+            else if (screenHandBot.y > screenBotMin.y)
             {
                 return 0;
             }
@@ -119,12 +142,12 @@ public class CompareHand : MonoBehaviour
         else
         {
             // 손 아랫 부분이 넘어서는 경우
-            if (handBot.y > worldBotMax.y)
+            if (screenHandBot.y > screenBotMax.y)
             {
                 return 3;
             }
             // 손 아랫 부분이 적절한 경우
-            else if (handBot.y > worldBotMin.y)
+            else if (screenHandBot.y > screenBotMin.y)
             {
                 return 3;
             }
