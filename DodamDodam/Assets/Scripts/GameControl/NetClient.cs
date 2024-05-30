@@ -200,7 +200,7 @@ public class NetClient : MonoBehaviour
 
                 valueList.Add(float.Parse(score));
                 monthList.Insert(0, monthList[0]-1);
-                monthList.Add(monthList[0]+1);
+                monthList.Add(monthList[^1]+1);
 
                 /*
                 for (int i = 0; i < valueList.Count; i++) {
