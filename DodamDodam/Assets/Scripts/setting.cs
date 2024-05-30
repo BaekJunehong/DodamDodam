@@ -15,6 +15,7 @@ public class Setting : MonoBehaviour
     public GameObject handSelect;
     public GameObject modeSelect;
     public GameObject difficultySelect;
+    public GameObject hand_cam;
     
     public void onPlayClicked()
     {
@@ -71,6 +72,7 @@ public class Setting : MonoBehaviour
         else {
             handOff();
             maskOff();
+            cameraOn();
         }
     }
 
@@ -84,6 +86,7 @@ public class Setting : MonoBehaviour
         else {
             handOff();
             maskOff();
+            cameraOn();
         }
     }
 
@@ -144,5 +147,15 @@ public class Setting : MonoBehaviour
     public void handOff()
     {
         handSelect.SetActive(false);
+    }
+
+    public void cameraOn()
+    {
+        hand_cam.SetActive(true);
+    }
+
+    public void cameraOff()
+    {
+        hand_cam.SetActive(false);
     }
 }

@@ -27,7 +27,7 @@ public class CompareHand : MonoBehaviour
     private Vector3 screenTopMin;
     private Vector3 screenBotMax;
     private Vector3 screenBotMin;
-    private string[] directions = new string[] { "유지", "아래로", "위로", "가까히", "멀리" };
+    private string[] directions = new string[] { "손을 그대로 유지해 주세요", "손을 아래로 내려 주세요", "손을 위로 올려 주세요", "손을 더 가까이 가져다 대세요", "손을 더 멀리 떨어뜨려 주세요" };
     public Camera screen_cam;
     public Camera hand_cam;
     private int totalSections = 6;
