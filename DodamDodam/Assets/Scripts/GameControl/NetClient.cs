@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using CodeMonkey.Utils;
+//using CodeMonkey.Utils;
 
 public class NetClient : MonoBehaviour
 {
@@ -16,11 +16,13 @@ public class NetClient : MonoBehaviour
     private string serverIP = "35.216.111.151";
     private int serverPort = 50001;
     private static string user_Name;
-    private RectTransform graphContainer;
-    private RectTransform labelTemplateX;
-    private RectTransform labelTemplateY;
-    [SerializeField] private Sprite circleSprite;
-    private int click = 0;
+    //private RectTransform graphContainer;
+    //private RectTransform labelTemplateX;
+    //private RectTransform labelTemplateY;
+    //[SerializeField] private Sprite circleSprite;
+    //private int click = 0;
+    private static List<int> monthList = new List<int>{};
+    private static List<float> valueList = new List<float>{0};
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class NetClient : MonoBehaviour
         }
     }
 
+    /*
     private void Awake() {
         if (SceneManager.GetActiveScene().name == "Result") {
             graphContainer = GameObject.Find("graphContainer").GetComponent<RectTransform>();
@@ -39,9 +42,18 @@ public class NetClient : MonoBehaviour
             labelTemplateY = graphContainer.Find("labelTemplateY").GetComponent<RectTransform>();
         }
     }
+    */
 
     public static string getName {
         get => user_Name;
+    }
+
+    public static List<int> getMonth {
+        get => monthList;
+    }
+
+    public static List<float> getValue {
+        get => valueList;
     }
 
     // 로그인 팝업에서 로그인 버튼 클릭 시 로그인 기능 수행
@@ -102,6 +114,7 @@ public class NetClient : MonoBehaviour
         }
     }
 
+    /*
     // 결과 팝업에서 저장 버튼 클릭 시 점수 저장 기능 수행
     public void OnSaveButtonClicked()
     {
@@ -132,9 +145,10 @@ public class NetClient : MonoBehaviour
             Debug.Log("No more data can be saved.");
         }
     }
+    */
 
     // 서버로 로그인 혹은 회원가입 데이터 전송
-    private void SendData(NetworkStream write_stream, string command, string username = "", string password = "", 
+    public static void SendData(NetworkStream write_stream, string command, string username = "", string password = "", 
     string name = "", string birthdate = "", string score = "")
     {
         try {
@@ -150,7 +164,7 @@ public class NetClient : MonoBehaviour
     }
 
     // 서버로부터 로그인 혹은 회원가입 결과 메시지 수신 및 처리
-    public void ReadData(NetworkStream read_stream, string score = "")
+    public static void ReadData(NetworkStream read_stream, string score = "")
     {
         try {
             string message = "";
@@ -170,9 +184,6 @@ public class NetClient : MonoBehaviour
             } else if (message == "User created successfully\n") {
                 GameObject.Find("signup_popup").SetActive(false);
             } else if (message == "Score saved successfully\n") {
-                List<float> valueList = new List<float>();
-                List<string> monthList = new List<string>();
-                
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
 
@@ -183,13 +194,15 @@ public class NetClient : MonoBehaviour
                     if (i % 2 == 0) {
                         valueList.Add(float.Parse(getList[i]));
                     } else {
-                        monthList.Add(getList[i]);
+                        monthList.Add(int.Parse(getList[i]));
                     }
                 }
 
                 valueList.Add(float.Parse(score));
-                monthList.Add("현재");
+                monthList.Insert(0, monthList[0]-1);
+                monthList.Add(monthList[0]+1);
 
+                /*
                 for (int i = 0; i < valueList.Count; i++) {
                     Debug.Log(valueList[i]);
                 }
@@ -199,7 +212,7 @@ public class NetClient : MonoBehaviour
                 }
 
                 showGraph(valueList);
-                /*
+                
                 bytesRead = read_stream.Read(data, 0, data.Length);
                 message = Encoding.UTF8.GetString(data, 0, bytesRead);
                 
@@ -212,6 +225,7 @@ public class NetClient : MonoBehaviour
         }
     }
 
+    /*
     private GameObject createCircle(Vector2 anchoredPosition)
     {
         GameObject gameObject = new GameObject("circle", typeof(Image));
@@ -279,6 +293,7 @@ public class NetClient : MonoBehaviour
         rectTransform.anchoredPosition = dotPositionA + dir * distance * .5f;
         rectTransform.localEulerAngles = new Vector3(0, 0, UtilsClass.GetAngleFromVectorFloat(dir));
     }
+    */
 
     // 애플리케이션 종료 시 소켓 연결 종료
     private void OnApplicationQuit() {
