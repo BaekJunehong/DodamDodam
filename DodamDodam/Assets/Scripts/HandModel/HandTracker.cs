@@ -87,18 +87,19 @@ public class HandTracker : MonoBehaviour
         Current_Wrist = MappingForCheck(HandAnimator.instance.GetPoint(0));
         return Current_Wrist;
     }
+
+    public Vector3 GetRawVertex(int index)
+    {
+        if (!isHandexist()) return CurrentVector;
+        CurrentVector = HandAnimator.instance.GetPoint(index);
+        return CurrentVector;
+    }
+
     public Vector3 GetVertex(int index)
     {
         if (!isHandexist()) return CurrentVector;
         CurrentVector = MappingVertex(HandAnimator.instance.GetPoint(index));
         return CurrentVector;
-    }
-
-    public Vector3 GetScreenVertex(int index, Camera cam)
-    {
-        if (!isHandexist()) return CurrentVector;
-        CurrentVector = MappingVertex(HandAnimator.instance.GetPoint(index));
-        return cam.WorldToScreenPoint(CurrentVector);
     }
 
     public Vector3 GetCenter()
