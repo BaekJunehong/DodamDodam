@@ -15,7 +15,8 @@ public class HandTracker : MonoBehaviour
 
     private Vector3 CurrentVector = new Vector3(0, 0, 0);
     private Vector3 CurrentDirection = new Vector3(0, 0, 0);
-    private Vector3 RawPos = new Vector3(0, 0, 0);
+    private Vector3 Current_Middle_Tip = new Vector3(0, 0, 0);
+    private Vector3 Current_Wrist = new Vector3(0, 0, 0);
 
 
     void Awake(){
@@ -52,12 +53,48 @@ public class HandTracker : MonoBehaviour
         return result;
     }
 
+    public Vector3 MappingForCheck(Vector3 refVec)
+    {
+        Vector3 originalMin = new Vector3(-0.85f, -0.5f, 0);
+        Vector3 originalMax = new Vector3(0.85f, 0.5f, 0);
+
+        Vector3 newMin = new Vector3(-18f, -10f, 0);       // (-9f, -5f, 0)  >> 200%
+        Vector3 newMax = new Vector3(18f, 10f, 0);         // (9f, 5f, 0)  >> 200%
+
+        float xRatio = (refVec.x - originalMin.x) / (originalMax.x - originalMin.x);
+        float yRatio = (refVec.y - originalMin.y) / (originalMax.y - originalMin.y);
+        // float zRatio = (refVec.z - originalMin.z) / (originalMax.z - originalMin.z);
+
+        float newX = Mathf.Clamp(newMin.x + xRatio * (newMax.x - newMin.x), -9f, 9f);
+        float newY = Mathf.Clamp(newMin.y + yRatio * (newMax.y - newMin.y), -5f, 5f);
+        // float newZ = newMin.z + zRatio * (newMax.z - newMin.z);
+        float newZ = 0f;
+
+        Vector3 result = new Vector3 (-newX, newY, newZ);
+
+        return result;
+    }
+
+    public Vector3 GetMiddleTip()
+    {
+        if (!isHandexist()) return Current_Middle_Tip;
+        Current_Middle_Tip = MappingForCheck(HandAnimator.instance.GetPoint(12));
+        return Current_Middle_Tip;
+    }
+    public Vector3 GetWrist()
+    {
+        if (!isHandexist()) return Current_Wrist;
+        Current_Wrist = MappingForCheck(HandAnimator.instance.GetPoint(0));
+        return Current_Wrist;
+    }
+
     public Vector3 GetRawVertex(int index)
     {
-        if (!isHandexist()) return RawPos;
-        RawPos = HandAnimator.instance.GetPoint(index);
-        return RawPos;
+        if (!isHandexist()) return CurrentVector;
+        CurrentVector = HandAnimator.instance.GetPoint(index);
+        return CurrentVector;
     }
+
     public Vector3 GetVertex(int index)
     {
         if (!isHandexist()) return CurrentVector;

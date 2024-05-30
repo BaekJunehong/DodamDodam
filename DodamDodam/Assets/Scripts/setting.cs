@@ -15,9 +15,8 @@ public class Setting : MonoBehaviour
     public GameObject handSelect;
     public GameObject modeSelect;
     public GameObject difficultySelect;
-    public Image hand;
-    public Sprite leftHand;
-    public Sprite rightHand;
+    public GameObject hand_cam;
+    
     public void onPlayClicked()
     {
         setMode(mode.modeType.play);
@@ -66,7 +65,6 @@ public class Setting : MonoBehaviour
     public void onLeftClicked()
     {
         setHand(handSide.whichSide.left);
-        hand.sprite = leftHand;
 
         if(Mode.M == modeType.tutorial) {
             SceneManager.LoadScene("Tutorial");
@@ -74,13 +72,13 @@ public class Setting : MonoBehaviour
         else {
             handOff();
             maskOff();
+            cameraOn();
         }
     }
 
     public void onRightClicked()
     {
         setHand(handSide.whichSide.right);
-        hand.sprite = rightHand;
 
         if(Mode.M == modeType.tutorial) {
             SceneManager.LoadScene("Tutorial");
@@ -88,6 +86,7 @@ public class Setting : MonoBehaviour
         else {
             handOff();
             maskOff();
+            cameraOn();
         }
     }
 
@@ -148,5 +147,15 @@ public class Setting : MonoBehaviour
     public void handOff()
     {
         handSelect.SetActive(false);
+    }
+
+    public void cameraOn()
+    {
+        hand_cam.SetActive(true);
+    }
+
+    public void cameraOff()
+    {
+        hand_cam.SetActive(false);
     }
 }

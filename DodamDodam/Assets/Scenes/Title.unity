@@ -1673,6 +1673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6c22750d2c8f34b9899fba3a3c1d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleSprite: {fileID: 0}
 --- !u!1 &472963049
 GameObject:
   m_ObjectHideFlags: 0
@@ -4315,6 +4316,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1453733552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453733553}
+  - component: {fileID: 1453733555}
+  - component: {fileID: 1453733554}
+  m_Layer: 0
+  m_Name: WebSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453733553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453733552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.435185, y: -1.935185, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453733554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453733552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4138f5fd0407124a9ae09c9ffeb6237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _source: {fileID: 1453733555}
+  _resources: {fileID: 11400000, guid: b766176cf5fff294fad8dff3eaa36726, type: 2}
+  _useAsyncReadback: 1
+  _jointMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  _boneMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  _jointMaterial: {fileID: 2100000, guid: 8fc9a49805f417449ab7a1d003186662, type: 2}
+  _boneMaterial: {fileID: 2100000, guid: a00bbf571964b4a4f9e545dcdc666ae8, type: 2}
+  _monitorUI: {fileID: 0}
+--- !u!114 &1453733555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453733552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ff2e515a81541cbb664860588e2c6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sourceType: 2
+  _texture: {fileID: 0}
+  _textureUrl: 
+  _video: {fileID: 0}
+  _videoUrl: 
+  _webcamResolution: {x: 1920, y: 1080}
+  _webcamFrameRate: 30
+  _outputTexture: {fileID: 0}
+  _outputResolution: {x: 1920, y: 1080}
+  _shader: {fileID: 4800000, guid: 3f7d8db4748f54c638a46cec0b0e61f8, type: 3}
 --- !u!1 &1567558606
 GameObject:
   m_ObjectHideFlags: 0
@@ -4766,6 +4842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6c22750d2c8f34b9899fba3a3c1d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleSprite: {fileID: 0}
 --- !u!1 &1880704688
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,3 +5869,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1927142972}
   - {fileID: 870882204}
+  - {fileID: 1453733553}

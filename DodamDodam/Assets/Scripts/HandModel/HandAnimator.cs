@@ -10,7 +10,6 @@ public sealed class HandAnimator : MonoBehaviour
     #region Public method
 
     public static HandAnimator instance;
-    public Text Alert_text;
 
     public Vector3 GetPoint(int index)
       => _pipeline.GetKeyPoint(index);
@@ -109,17 +108,8 @@ public sealed class HandAnimator : MonoBehaviour
     }
 
     void Start()
-    {
-      try
-      {
-        _pipeline = new HandPipeline(_resources);
-        if(Alert_text != null) Alert_text.text = "Pipeline Done!";
-      }
-      catch (System.Exception ex)
-      {
-        if(Alert_text != null) Alert_text.text = "Pipeline Error : " + ex.Message;
-      }
-    }
+      => _pipeline = new HandPipeline(_resources);
+    
     void OnDestroy()
       => _pipeline.Dispose();
 
