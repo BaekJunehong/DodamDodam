@@ -172,7 +172,7 @@ public class tutorial : MonoBehaviour
             }
             break;
             case 2:
-            //가위질을 해보세요(가위가 멈춤)
+            ObjectMove();
             if(power >= 1 && isGrabbedScissors && !isCoroutineRunning){
                 StartCoroutine("scissors", power);
             }
@@ -191,12 +191,14 @@ public class tutorial : MonoBehaviour
             case 4:
             //손을 움직여 방향을 조절해보세요!
             guideLineObjcet.SetActive(true);
+            ObjectMove();
             if(!isCoroutineRunning){
                 StartCoroutine(guideLine());
             }
             break;
             case 5:
             //붉은 지점을 향해 가위질을 해보세요
+            ObjectMove();
             if(power >= 1 && Vector3.Distance(destinationObject.transform.position, cuttedPointObject.transform.position + direction * 3)<= 0.5f && isGrabbedScissors){
                 cuttedLineRenderer.positionCount++;
                 cuttedPointObject.transform.position = destinationObject.transform.position;
