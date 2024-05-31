@@ -74,7 +74,7 @@ public class ChangeGame : MonoBehaviour
                     //score.text = GameObject.Find("Timer").GetComponent<Timer>().T.ToString("N2");
                     //error.text = GameObject.Find("Error").GetComponent<ErrorCount>().E.ToString("N");
                     score.text = Timer.T.ToString("N2");
-                    error.text = ErrorCount.E.ToString("N");
+                    error.text = ErrorCount.E.ToString("N4");
 
                     foreach (GameObject obj in objectsWithTag)
                     {
