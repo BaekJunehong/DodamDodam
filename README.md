@@ -1,5 +1,7 @@
 # 도담도담 
 눈 손 협응력 점검 서비스   
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/87eae8c2-36da-4606-aaa5-8793fec95ed9" alt="image" width="800" height="450">  
+
 
 ## 1. 배경  
 현 시장에서 눈 손 협응력이 부족한 아동들을 대상으로 하는 서비스를 찾아보기 힘든 상황  
