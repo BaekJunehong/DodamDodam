@@ -11,9 +11,9 @@
 <img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/195ceb8d-78b9-4792-9f9e-635980801e0f" alt="image" width="800" height="400">
 
 ### [놀이하기 유형]
-> 눈 손 협응력을 보완을 위한 서비스 유형
-
-<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/a05fbd61-622a-47c4-84d7-db3d41e44ddc" alt="image" width="800" height="180">
+> 눈 손 협응력을 보완을 위한 서비스 유형  
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/aa6029c8-6b4d-4f61-9485-8881a03aea18" alt="image" width="800" height="180">  
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/a05fbd61-622a-47c4-84d7-db3d41e44ddc" alt="image" width="800" height="180">  
 
 ### [평가하기 유형]
 > 눈 손 협응력을 점검을 위한 서비스 유형
