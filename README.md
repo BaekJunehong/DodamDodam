@@ -10,23 +10,23 @@
 눈 손 협응력을 향상시키는데 도움이 되는 서비스를 개발하는 것을 목표로 함  
 
 ## 2. 서비스 유형  
-<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/195ceb8d-78b9-4792-9f9e-635980801e0f" alt="image" width="800" height="300">
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/195ceb8d-78b9-4792-9f9e-635980801e0f" alt="image" width="800" height="200">
 
 ### 놀이하기 유형  
 > 눈 손 협응력을 보완을 위함
 
 놀이하기 유형 화면구성  
 
-<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/a05fbd61-622a-47c4-84d7-db3d41e44ddc" alt="image" width="800" height="300">
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/a05fbd61-622a-47c4-84d7-db3d41e44ddc" alt="image" width="800" height="200">
 
 ### 평가하기 유형
 > 눈 손 협응력을 점검을 위함
 
 평가하기 유형 화면구성  
 
-<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/094f8810-610f-40aa-bd43-538bba9f3b25" alt="image" width="800" height="450">
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/094f8810-610f-40aa-bd43-538bba9f3b25" alt="image" width="800" height="400">
 
 결과화면  
-<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/814bf019-1563-464d-973c-efe8a0ffc5fd" alt="image" width="800" height="450">
+<img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/814bf019-1563-464d-973c-efe8a0ffc5fd" alt="image" width="800" height="400">
 
 
