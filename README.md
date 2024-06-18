@@ -15,18 +15,20 @@
 
 <img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/aa6029c8-6b4d-4f61-9485-8881a03aea18" alt="image" width="800" height="400">  
 
-
+  
 - 연습 
 -> 서비스의 전반적인 게임에 대한 이해를 돕고자 만든 단계
 
 <img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/7a8a7aa9-b5ab-4c9b-b9b9-5b23b4f3f3df" alt="image" width="800" height="400">  
 
+  
+- 단계별 게임
 
-- 단계별 게임 
 -> 각 단계별로 직선,둥근선,지그재그선으로 동일하게 구성 / 각 단계별로 선의 굵기, 시점&종점 위치 변환등으로 난이도 차이부여
   
 <img src="https://github.com/BaekJunehong/DodamDodam/assets/101456289/a05fbd61-622a-47c4-84d7-db3d41e44ddc" alt="image" width="800" height="180">  
 
+  
 
 ### [평가하기 유형]
 > 눈 손 협응력을 점검을 위한 서비스 유형
