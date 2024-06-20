@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using HandUtils;
-using Microsoft.Unity.VisualStudio.Editor;
+// using Microsoft.Unity.VisualStudio.Editor;
 //using System.Numerics;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
